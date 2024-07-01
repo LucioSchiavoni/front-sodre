@@ -7,6 +7,7 @@ import HomeAuth from './pages/HomeAuth'
 import LoginPage from './pages/LoginPage'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/ReactToastify.css';
+import CrearEventoPage from './pages/CrearEventoPage'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <Route element={<ProtectedRoute isAllowed={isAuth} />}> 
 
         <Route path='/auth' element={<HomeAuth/>} />
+        <Route path='/crearEvento' element={<CrearEventoPage/>} />
         
         
         </Route>

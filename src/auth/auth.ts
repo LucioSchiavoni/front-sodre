@@ -4,10 +4,6 @@ import { registerRequest } from "../api/auth";
 
 
 
-
-
-
-
 type State = {
     token: string;
     profile: any;

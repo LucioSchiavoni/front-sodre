@@ -1,4 +1,5 @@
 import { useAuthStore } from "../auth/auth"
+import { EventoCard } from "../components/cards/EventoCard"
 import Layout from "../layout/Layout"
 
 
@@ -15,15 +16,15 @@ const HomeAuth = () => {
 
             userRol === "ADMIN" ?
             <>
-            <div>
-                Componente Home Admin
+            <div className="">
+                <EventoCard/>
             </div>
             </>
             :
 
             <>
             <div>
-                Componente Home User
+            <EventoCard/>
             </div>
             </>
         }

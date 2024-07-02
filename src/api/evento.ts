@@ -22,3 +22,5 @@ export const mostrarEventosRequest = async(): Promise<Evento[]> => {
         throw new Error("Error al obtener eventos");
     }
 }
+
+

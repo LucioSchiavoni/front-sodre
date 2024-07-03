@@ -1,8 +1,13 @@
 import { useQuery } from "@tanstack/react-query"
 import { Evento } from "../../interface/evento"
 import { mostrarEventosRequest } from "../../api/evento"
-import {format, parseISO} from 'date-fns';
+import { format, parseISO} from 'date-fns';
 import {es} from 'date-fns/locale';
+import { crearParticipante } from "../../api/participante";
+import { useAuthStore } from "../../auth/auth";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { CrearParticipante } from "../../interface/participante";
 
 export const EventoCard = () => {
 
@@ -11,10 +16,36 @@ export const EventoCard = () => {
         queryFn: mostrarEventosRequest,
       });
 
+    const user = useAuthStore((state) => state.profile)
+    const userId = user.id
+    const [checkFecha, setCheckFecha] = useState<{ fecha: string}[]>([]);
+
+      const addFechas = (fecha: string) => {
+          setCheckFecha([...checkFecha, {fecha}])
+      }
+      
     const obtenerFecha = (fecha: string): string => {
         const fechaDate = parseISO(fecha);
         const fechaConfig = format(fechaDate, "dd MMMM", {locale: es} );
         return fechaConfig;
+    }
+
+    const handleParticipante = async(eventoId: number) => {
+      try {
+         if(checkFecha.length === 0){
+          toast.info("Elija al menos una fecha")
+          return;
+        }
+        const dataPart: CrearParticipante = {
+          usuarioId: userId,
+          eventoId: eventoId,
+          fecha_participante: checkFecha.map(fecha => fecha.fecha)  
+        }
+        console.log("los datos del user: ", dataPart)
+        // await crearParticipante(dataPart)
+      } catch (error) {
+        console.log(error)
+      }
     }
 
     if(isLoading)
@@ -42,15 +73,19 @@ export const EventoCard = () => {
             <aside className="flex flex-col ">
                 {
                     item.fechas_evento.map((fecha, index) => (
-                        <div key={index} className="">
-                            <p>{obtenerFecha(fecha.fecha)}</p>
+                        <div key={index} className="flex gap-2">
+                           <input
+                             type="checkbox"
+                              onChange={() => addFechas(fecha.fecha)}
+                              value={fecha.fecha}/>
+                               <label className="ml-2">{obtenerFecha(fecha.fecha)}</label>
                         </div>
                     ))
                 }
                
             </aside>
              <div className="flex justify-center items-center">
-              <button className="w-40 border bg-gray-100 rounded-md py-1 px-3 ">Participar</button>   
+              <button onClick={() => handleParticipante(item.id)} className="w-40 border bg-gray-100 rounded-md py-1 px-3 ">Participar</button>   
             </div> 
                
     </div>

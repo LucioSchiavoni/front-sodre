@@ -8,6 +8,7 @@ import { useAuthStore } from "../../auth/auth";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { CrearParticipante } from "../../interface/participante";
+import FechaModal from "../modal/FechaModal";
 
 export const EventoCard = () => {
 
@@ -18,34 +19,13 @@ export const EventoCard = () => {
 
     const user = useAuthStore((state) => state.profile)
     const userId = user.id
-    const [checkFecha, setCheckFecha] = useState<{ fecha: string}[]>([]);
+    
 
-      const addFechas = (fecha: string) => {
-          setCheckFecha([...checkFecha, {fecha}])
-      }
       
     const obtenerFecha = (fecha: string): string => {
         const fechaDate = parseISO(fecha);
         const fechaConfig = format(fechaDate, "dd MMMM", {locale: es} );
         return fechaConfig;
-    }
-
-    const handleParticipante = async(eventoId: number) => {
-      try {
-         if(checkFecha.length === 0){
-          toast.info("Elija al menos una fecha")
-          return;
-        }
-        const dataPart: CrearParticipante = {
-          usuarioId: userId,
-          eventoId: eventoId,
-          fecha_participante: checkFecha.map(fecha => fecha.fecha)  
-        }
-        console.log("los datos del user: ", dataPart)
-        // await crearParticipante(dataPart)
-      } catch (error) {
-        console.log(error)
-      }
     }
 
     if(isLoading)
@@ -71,21 +51,17 @@ export const EventoCard = () => {
             </p>
             <p className="mt-5">Fechas</p>
             <aside className="flex flex-col ">
-                {
-                    item.fechas_evento.map((fecha, index) => (
-                        <div key={index} className="flex gap-2">
-                           <input
-                             type="checkbox"
-                              onChange={() => addFechas(fecha.fecha)}
-                              value={fecha.fecha}/>
-                               <label className="ml-2">{obtenerFecha(fecha.fecha)}</label>
-                        </div>
+           {
+              item.fechas_evento.map((fecha, index) => (
+                <div key={index} className="flex gap-2">
+                <label className="ml-2">{obtenerFecha(fecha.fecha)}</label>
+
+                </div>
                     ))
-                }
-               
+            }
             </aside>
              <div className="flex justify-center items-center">
-              <button onClick={() => handleParticipante(item.id)} className="w-40 border bg-gray-100 rounded-md py-1 px-3 ">Participar</button>   
+              <FechaModal eventoId={item.id} userId={userId} fecha={item.fechas_evento.map(item => item.fecha)}/>   
             </div> 
                
     </div>

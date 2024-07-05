@@ -2,29 +2,44 @@ import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, 
 import { toast } from "react-toastify";
 import { CrearParticipante } from "../../interface/participante";
 import { useState } from "react";
+import { obtenerFecha } from "../../utils/FechaFormat";
+import { crearParticipante } from "../../api/participante";
 
 interface FechaProps {
-    fecha: string[];
+    fechas: string[];
     eventoId: number;
     userId: number;
 }
 
 
-const FechaModal: React.FC<FechaProps> = ({fecha, eventoId, userId}) => {
+const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
 
+    const [entradas, setEntradas] = useState("");
+    const [checkFecha, setCheckFecha] = useState<string[]>([]);
 
 
     const { isOpen, onOpen, onClose } = useDisclosure() 
 
+    const handleCheckboxChange = (fecha: string) => {
+        setCheckFecha(prev => 
+          prev.includes(fecha) ? prev.filter(item => item !== fecha) : [...prev, fecha]
+        );
+      };
+
     const handleParticipante = async() => {
         try {
-          const dataPart: CrearParticipante = {
+          const data: CrearParticipante = {
             usuarioId: userId,
             eventoId: eventoId,
-            fecha_participante: fecha  
+            fecha_participante: checkFecha,
+            cantidad_entradas: parseInt(entradas)
           }
-          console.log("los datos del user: ", dataPart)
-          // await crearParticipante(dataPart)
+         const res = await crearParticipante(data)
+         if(res.success){
+            toast.success(res.success)
+         }else{
+            toast.info(res.error)
+         }
         } catch (error) {
           console.log(error)
         }
@@ -38,21 +53,29 @@ const FechaModal: React.FC<FechaProps> = ({fecha, eventoId, userId}) => {
     <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
     <ModalOverlay />
     <ModalContent>
-        <ModalHeader>Titulo Fechas</ModalHeader>
-        <div className="text-center">
-            <aside className="flex flex-col">
-                {fecha}
+        <ModalHeader>Seleccione los datos para participar</ModalHeader>
+        <div className="px-8 flex flex-col gap-5">
+            <aside className="flex flex-col ">
+                <p className="mb-2 font-semibold">Fechas que desea ir</p>
+            {fechas.map((fechaItem, index) => (
+          <div key={index} className="flex gap-2 font-semibold capitalize">
+             <input 
+                    type="checkbox" 
+                    value={fechaItem} 
+                    onChange={() => handleCheckboxChange(fechaItem)} 
+                    checked={checkFecha.includes(fechaItem)}
+                  />
+            {obtenerFecha(fechaItem)}
+            </div>
+        ))}
             </aside>
-            <p >Evento id: {eventoId}</p>
-            <p>User id: {userId}</p>
-            <aside className="p-3 flex flex-col gap-2">
-                    <p>Numero de entradas</p>
-            <select name="cantidad_entradas" id="" className="px-3 py-1 border rounded-md shadow-xl w-24 m-auto">
+            <aside className="flex-1">
+                    <p className="mb-2 font-semibold">Numero de entradas</p>
+            <select name="cantidad_entradas" value={entradas} onChange={ (e) => setEntradas(e.target.value)} id="cantidad_entradas" className="px-3 py-1 border rounded-md shadow-xl w-24 ">
                 <option value="1">1</option>
                 <option value="2">2</option>
             </select>
             </aside>
-        
         </div>
         <ModalCloseButton/>
         <ModalBody>

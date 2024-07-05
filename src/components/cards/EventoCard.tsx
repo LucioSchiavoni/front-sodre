@@ -1,14 +1,9 @@
 import { useQuery } from "@tanstack/react-query"
 import { Evento } from "../../interface/evento"
 import { mostrarEventosRequest } from "../../api/evento"
-import { format, parseISO} from 'date-fns';
-import {es} from 'date-fns/locale';
-import { crearParticipante } from "../../api/participante";
 import { useAuthStore } from "../../auth/auth";
-import { useState } from "react";
-import { toast } from "react-toastify";
-import { CrearParticipante } from "../../interface/participante";
 import FechaModal from "../modal/FechaModal";
+import { obtenerFecha } from "../../utils/FechaFormat";
 
 export const EventoCard = () => {
 
@@ -19,14 +14,6 @@ export const EventoCard = () => {
 
     const user = useAuthStore((state) => state.profile)
     const userId = user.id
-    
-
-      
-    const obtenerFecha = (fecha: string): string => {
-        const fechaDate = parseISO(fecha);
-        const fechaConfig = format(fechaDate, "dd MMMM", {locale: es} );
-        return fechaConfig;
-    }
 
     if(isLoading)
         return (
@@ -39,7 +26,7 @@ export const EventoCard = () => {
 <div className="grid grid-cols-3 gap-4 p-24">
     { 
         data.map((item, index) => (
-    <div className="relative bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" key={index}>
+    <div className="relative  bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" key={index}>
   <img className="w-full h-auto rounded-xl object-cover" src={item.imagen} alt="Evento Imagen"/>
   <div className="absolute top-0 start-0 end-0">
     <div className="p-4 md:p-5">
@@ -52,16 +39,15 @@ export const EventoCard = () => {
             <p className="mt-5">Fechas</p>
             <aside className="flex flex-col ">
            {
-              item.fechas_evento.map((fecha, index) => (
+              item.fechas_evento.map((item, index) => (
                 <div key={index} className="flex gap-2">
-                <label className="ml-2">{obtenerFecha(fecha.fecha)}</label>
-
+                <label className="ml-2">{obtenerFecha(item.fecha)}</label>
                 </div>
                     ))
             }
             </aside>
              <div className="flex justify-center items-center">
-              <FechaModal eventoId={item.id} userId={userId} fecha={item.fechas_evento.map(item => item.fecha)}/>   
+              <FechaModal eventoId={item.id} userId={userId} fechas={item.fechas_evento.map((item => item.fecha))}/>   
             </div> 
                
     </div>

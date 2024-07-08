@@ -12,15 +12,17 @@ export interface Participante {
    fecha_participante: string;
    fecha_cambio_participante: string;
    cantidad_entradas: number;
-   fecha_seleccionada:{
-      id: number;
-      fecha: string;
-      participanteId: number;
-   }
+   fecha_seleccionada: FechaSeleccionada[];
    usuario: {
       nombre: string;
       username: string;
       cedula: string;
       sector: string;
    }
+}
+
+interface FechaSeleccionada {
+      id: number;
+      fecha: string;
+      participanteId: number;
 }

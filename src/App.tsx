@@ -8,7 +8,7 @@ import LoginPage from './pages/LoginPage'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/ReactToastify.css';
 import CrearEventoPage from './pages/CrearEventoPage'
-import ParticipantesPage from './pages/ParticipantesPage'
+
 
 function App() {
 
@@ -25,7 +25,7 @@ function App() {
 
         <Route path='/auth' element={<HomeAuth/>} />
         <Route path='/crearEvento' element={<CrearEventoPage/>} />
-        <Route path='/participantes/:id' element={<ParticipantesPage/>} />
+   
         
         </Route>
       </Routes>

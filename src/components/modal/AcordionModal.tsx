@@ -4,6 +4,7 @@ import { getGanadoresRequest } from '../../api/ganadores'
 import { Ganadores } from '../../interface/ganadores'
 
 
+
 interface IdProps {
     eventoId: number
 }
@@ -52,28 +53,25 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
     <Thead>
       <Tr>
         <Th>Nombre</Th>
-        <Th>Sector</Th>
-        <Th >Cedula</Th>
-        <Th>Opciones</Th>
+        <Th>Email</Th>
+        <Th>Fechas</Th>
+        <Th >Opciones</Th>
+        
        
       </Tr>
     </Thead>
     <Tbody>
       {
         data.map((item: Ganadores, index: number) => (
-                   
       <Tr key={index}>
-        <Td>{item.usuario.nombre}</Td>
-        <Td>{item.usuario.cedula}</Td>
-        <Td>{item.usuario.sector}</Td>
+        <Td>{item.usuario.nombre}</Td> 
+        <Td>{item.usuario.email}</Td>
+        <Td className='flex '>{item.evento.participantes.map(item => item.fecha_seleccionada.map(fechaItem => fechaItem.fecha))}</Td>
         <div className='flex gap-2 mt-2'>
-                   <button className='px-3 py-1 border rounded-md '>Enviar</button>
+        <button className='px-3 py-1 border rounded-md'>Enviar</button>
         <button className='px-3 py-1 border rounded-md'>Eliminar</button>
         </div>
- 
       </Tr>
-      
-         
         ))
       } 
       </Tbody>

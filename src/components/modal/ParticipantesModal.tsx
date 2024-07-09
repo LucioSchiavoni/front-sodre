@@ -7,6 +7,7 @@ import { obtenerFecha } from '../../utils/FechaFormat';
 import { generarGanadoresRequest } from '../../api/ganadores';
 import AcordionModal from './AcordionModal';
 
+
 interface EventoId {
     id: number;
 }
@@ -95,6 +96,7 @@ const ParticipantesModal: React.FC<EventoId> = ({id}) => {
          </ModalBody>
          <div className='px-10 flex flex-col gap-10 py-5'>
           <div className='flex gap-4'> 
+      
    <ButtonLayout content='Enviar' typeButton={"submit"} onClick={handleClick} />
       <ButtonLayout content='Cerrar' onClick={onClose} /> 
             </div>  

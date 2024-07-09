@@ -1,3 +1,5 @@
+
+
 export interface CrearParticipante {
    usuarioId: number;
    eventoId: number;
@@ -14,15 +16,18 @@ export interface Participante {
    cantidad_entradas: number;
    fecha_seleccionada: FechaSeleccionada[];
    usuario: {
-      nombre: string;
-      username: string;
-      cedula: string;
-      sector: string;
+      id:number;
+    nombre: string;
+    username: string;
+    email: string;
+    cedula: string;
+    sector: string;
+    ganador_anterior: boolean;
    }
 }
 
-interface FechaSeleccionada {
-      id: number;
-      fecha: string;
-      participanteId: number;
+export interface FechaSeleccionada {
+   id: number;
+   fecha: string;
+   participanteId: number;
 }

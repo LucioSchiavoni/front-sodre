@@ -1,11 +1,11 @@
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useDisclosure } from '@chakra-ui/react';
-import ButtonLayout from '../../utils/ButtonLayout';
-import { Participante } from '../../interface/participante';
+import ButtonLayout from '../../../utils/ButtonLayout';
+import { Participante } from '../../../interface/participante';
 import { useQuery } from '@tanstack/react-query';
-import { participanteByIdEvento } from '../../api/participante';
-import { obtenerFecha } from '../../utils/FechaFormat';
-import { generarGanadoresRequest } from '../../api/ganadores';
-import AcordionModal from './AcordionModal';
+import { participanteByIdEvento } from '../../../api/participante';
+import { obtenerFecha } from '../../../utils/FechaFormat';
+import { generarGanadoresRequest } from '../../../api/ganadores';
+import AcordionModal from '../ganadores/AcordionModal';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -37,10 +37,12 @@ const ParticipantesModal: React.FC<EventoId> = ({ id }) => {
         numGanadores: formData.numGanadores
       };
       const result = await generarGanadoresRequest(dataJson);
-      toast.success(result);
+      toast.success(result.data.success);
     } catch (error) {
       console.log(error);
       toast.error("Error al generar los ganadores");
+    }finally{
+      window.location.reload();
     }
   };
 
@@ -107,7 +109,8 @@ const ParticipantesModal: React.FC<EventoId> = ({ id }) => {
               </form>
             </div>
             <div>
-              <AcordionModal eventoId={eventoId} />
+              {/* Datos de ganadores */}
+              <AcordionModal eventoId={eventoId}  />
             </div>
           </div>
         </ModalContent>

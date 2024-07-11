@@ -4,8 +4,7 @@ import { mostrarEventosRequest } from "../../api/evento"
 import { useAuthStore } from "../../auth/auth";
 import FechaModal from "../modal/FechaModal";
 import { obtenerFecha } from "../../utils/FechaFormat";
-
-import ParticipantesModal from "../modal/ParticipantesModal";
+import ParticipantesModal from "../modal/participantes/ParticipantesModal";
 
 export const EventoCard = () => {
 

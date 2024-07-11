@@ -1,7 +1,7 @@
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
-import { getGanadoresRequest } from '../../api/ganadores'
-import { Ganadores } from '../../interface/ganadores'
+import { getGanadoresRequest } from '../../../api/ganadores'
+import { Ganadores } from '../../../interface/ganadores'
 
 
 
@@ -25,10 +25,10 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
     </div>
     )
 
-    if (!data || !Array.isArray(data)) {
+    if (!data || !Array.isArray(data) || data.length === 0) {
         return (
             <div>
-                <p className='text-3xl text-black'>Sin ganadores aun.</p>
+                <p className='text-xl text-center text-gray-700'>Sin ganadores aun.</p>
             </div>
         );
     }
@@ -54,7 +54,7 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
       <Tr>
         <Th>Nombre</Th>
         <Th>Email</Th>
-        <Th>Fechas</Th>
+ 
         <Th >Opciones</Th>
         
        
@@ -66,9 +66,8 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
       <Tr key={index}>
         <Td>{item.usuario.nombre}</Td> 
         <Td>{item.usuario.email}</Td>
-        <Td className='flex '>{item.evento.participantes.map(item => item.fecha_seleccionada.map(fechaItem => fechaItem.fecha))}</Td>
         <div className='flex gap-2 mt-2'>
-        <button className='px-3 py-1 border rounded-md'>Enviar</button>
+        <button className='px-3 py-1 border rounded-md'>Enviar </button>
         <button className='px-3 py-1 border rounded-md'>Eliminar</button>
         </div>
       </Tr>

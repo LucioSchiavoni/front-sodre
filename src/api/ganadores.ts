@@ -21,3 +21,26 @@ export const getGanadoresRequest = async(eventoId:number): Promise<Ganadores[] |
         console.log(error)
     }
 }
+
+export const sendEmailRequest = async(nombre: string, email: string) => {
+    try {
+        const dataJson = {
+            nombre: nombre,
+            email: email
+        }
+        const result = await clienteAxios.post("/sendEmail", dataJson)
+        return result.data;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+export const deleteGanadoresRequest = async(id:number) => {
+    try {
+        const result = await clienteAxios.delete(`/ganadores/${id}`)
+        return result;
+    } catch (error) {
+        console.log(error)
+    }
+}

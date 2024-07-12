@@ -1,7 +1,8 @@
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
-import { getGanadoresRequest } from '../../../api/ganadores'
+import { deleteGanadoresRequest, getGanadoresRequest, sendEmailRequest } from '../../../api/ganadores'
 import { Ganadores } from '../../../interface/ganadores'
+import { toast } from 'react-toastify'
 
 
 
@@ -17,6 +18,32 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
         queryFn: () => getGanadoresRequest(eventoId)
 
     })
+
+
+    const handleSend = async(nombre: string, email:string) => {
+      try {
+        const res = await sendEmailRequest(nombre, email)
+        console.log(nombre, email)
+        toast.info(res.message)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+   
+
+    const handleDelete = async(id: number) => {
+      try {
+        const res = await deleteGanadoresRequest(id)
+        toast.info(res?.data.message)
+      } catch (error) {
+        console.log(error)
+      }finally{
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000)
+      }
+    }
 
     if(isLoading)
         return(
@@ -64,8 +91,8 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
       <Tr key={index} className=''>
         <Td className='capitalize'>{item.usuario.nombre}</Td> 
         <Td>{item.usuario.email}</Td>
-     <Td> <button className='px-3 py-1 border rounded-md'>Enviar </button></Td>  
-    <Td><button className='px-3 py-1 border rounded-md'>Eliminar</button></Td>    
+     <Td> <button className='px-3 py-1 border rounded-md' onClick={() => handleSend(item.usuario.nombre, item.usuario.email || "")}>Enviar </button></Td>  
+    <Td><button className='px-3 py-1 border rounded-md' onClick={() => handleDelete(item.id)}>Eliminar</button></Td>    
       
       </Tr>
         ))

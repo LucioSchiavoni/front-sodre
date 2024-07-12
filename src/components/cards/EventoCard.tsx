@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query"
 import { Evento } from "../../interface/evento"
-import { mostrarEventosRequest } from "../../api/evento"
+import { deleteEventoRequest, mostrarEventosRequest } from "../../api/evento"
 import { useAuthStore } from "../../auth/auth";
 import FechaModal from "../modal/FechaModal";
 import { obtenerFecha } from "../../utils/FechaFormat";
 import ParticipantesModal from "../modal/participantes/ParticipantesModal";
 import Image from '../../assets/sodre-default.jpg'
-
+import { toast } from "react-toastify";
+import ConfirmDelete from "../modal/delete/ConfirmDelete";
 
 export const EventoCard = () => {
 
@@ -17,6 +18,20 @@ export const EventoCard = () => {
 
     const user = useAuthStore((state) => state.profile)
     const userId = user.id
+
+    const handleDelete = async(id: number) => {
+      try {
+        const res = await deleteEventoRequest(id)
+        toast.info(res.data.success)
+      } catch (error) {
+        console.log(error)
+      }finally{
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000) 
+        
+      }
+    }
 
     if(isLoading)
         return (
@@ -67,7 +82,7 @@ export const EventoCard = () => {
 
   
           {user.rol === "ADMIN" ?
-          <button className="px-3 py-1 rounded-md border shadow-xl font-medium"> Borrar evento</button>
+          <ConfirmDelete onClick={() => handleDelete(item.id)}/>
           :
           null
         }

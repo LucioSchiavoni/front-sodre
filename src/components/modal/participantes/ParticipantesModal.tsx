@@ -8,6 +8,8 @@ import { generarGanadoresRequest } from '../../../api/ganadores';
 import AcordionModal from '../ganadores/AcordionModal';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { ScrollShadow } from '@nextui-org/react';
+
 
 interface EventoId {
   id: number;
@@ -70,6 +72,12 @@ const ParticipantesModal: React.FC<EventoId> = ({ id }) => {
           <ModalBody>
             <div className='px-3 py-2 flex flex-col' style={{ maxHeight: '60vh', overflowY: 'auto' }}>
               <TableContainer>
+                 <ScrollShadow 
+                      //hideScrollBar
+                      offset={100}
+                      orientation='horizontal'
+                      className='max-w-[900px] max-h-[300px]'
+                      >
                 <Table size='sm'>
                   <Thead>
                     <Tr>
@@ -81,6 +89,7 @@ const ParticipantesModal: React.FC<EventoId> = ({ id }) => {
                   </Thead>
                   <Tbody>
                     {data.map((item: Participante, index: number) => (
+                     
                       <Tr key={index}>
                         <Td className='capitalize'>{item.usuario.nombre}</Td>
                         <Td className='capitalize'>{item.usuario.sector}</Td>
@@ -91,14 +100,16 @@ const ParticipantesModal: React.FC<EventoId> = ({ id }) => {
                           ))}
                         </Td>
                       </Tr>
+                   
                     ))}
                   </Tbody>
                 </Table>
+                   </ScrollShadow>
               </TableContainer>
             </div>
           </ModalBody>
-          <div className='px-10 flex flex-col gap-10 py-5'>
-            <div className='flex gap-4'>
+          <div className='px-10 flex flex-col gap-10 py-5 border '>
+            <div className='flex gap-4 border p-3 rounded-md shadow-xl'>
               <form onSubmit={handleSubmit(handleSorteo)} className=' flex  '>
                 <aside className='flex flex-col gap-3'>
                     <label htmlFor="numGanadores" className='font-medium'>Número de ganadores</label>

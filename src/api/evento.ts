@@ -24,3 +24,12 @@ export const mostrarEventosRequest = async(): Promise<Evento[]> => {
 }
 
 
+export const deleteEventoRequest = async(id: number): Promise<Evento[] | any> => {
+    try {
+        const res = await clienteAxios.delete(`/evento/${id}`)
+        return res;
+    } catch (error) {
+        console.log(error)
+    }
+}
+

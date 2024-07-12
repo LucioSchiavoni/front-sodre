@@ -36,8 +36,8 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
     if(data)
   return (
     <>
-    <Accordion defaultIndex={[0]} allowMultiple>
-  <AccordionItem>
+    <Accordion defaultIndex={[0]} allowMultiple className='border rounded-md '>
+  <AccordionItem className=''>
     <h2>
       <AccordionButton>
         <Box as='span' flex='1' textAlign='left' className='font-medium text-xl px-4'>
@@ -46,30 +46,27 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
         <AccordionIcon />
       </AccordionButton>
     </h2>
-    <AccordionPanel pb={4} className='flex'>
+    <AccordionPanel pb={4} >
                     <TableContainer>
-  <Table variant='simple'>
-   
+  <Table variant='simple' className=''>
     <Thead>
       <Tr>
         <Th>Nombre</Th>
         <Th>Email</Th>
- 
-        <Th >Opciones</Th>
-        
+        <Th >Enviar correo</Th>
+        <Th>Borrar ganador</Th>
        
       </Tr>
     </Thead>
     <Tbody>
       {
         data.map((item: Ganadores, index: number) => (
-      <Tr key={index}>
-        <Td>{item.usuario.nombre}</Td> 
+      <Tr key={index} className=''>
+        <Td className='capitalize'>{item.usuario.nombre}</Td> 
         <Td>{item.usuario.email}</Td>
-        <div className='flex gap-2 mt-2'>
-        <button className='px-3 py-1 border rounded-md'>Enviar </button>
-        <button className='px-3 py-1 border rounded-md'>Eliminar</button>
-        </div>
+     <Td> <button className='px-3 py-1 border rounded-md'>Enviar </button></Td>  
+    <Td><button className='px-3 py-1 border rounded-md'>Eliminar</button></Td>    
+      
       </Tr>
         ))
       } 

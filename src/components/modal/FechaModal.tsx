@@ -71,7 +71,7 @@ const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
             </aside>
             <aside className="flex-1">
                     <p className="mb-2 font-semibold">Numero de entradas</p>
-            <select name="cantidad_entradas" value={entradas} onChange={ (e) => setEntradas(e.target.value)} id="cantidad_entradas" className="px-3 py-1 border rounded-md shadow-xl w-24 ">
+            <select name="cantidad_entradas" value={entradas} onChange={ (e) => setEntradas(e.target.value)} id="cantidad_entradas" className="px-3 py-1 border rounded-md shadow-xl w-24 " required>
                 <option value="1">1</option>
                 <option value="2">2</option>
             </select>

@@ -8,7 +8,7 @@ interface ButtonProps {
 
 const ButtonLayout:React.FC<ButtonProps> = ({content, onClick, typeButton}) => {
   return (
-    <button type={typeButton} className='px-3 py-1 rounded-md border font-medium ' onClick={onClick || undefined}>{content}</button>
+    <button type={typeButton} className='px-3 py-1 w-28 rounded-md border font-medium ' onClick={onClick || undefined}>{content}</button>
   )
 }
 

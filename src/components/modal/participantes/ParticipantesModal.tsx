@@ -55,7 +55,7 @@ const ParticipantesModal: React.FC<EventoId> = ({ id }) => {
   }
 
   if (!data || data.length === 0) {
-    return <p className='border p-2 rounded-md text-sm font-medium bg-gray-200'>No se encontraron participantes</p>;
+    return null
   }
 
   return (
@@ -99,12 +99,14 @@ const ParticipantesModal: React.FC<EventoId> = ({ id }) => {
           </ModalBody>
           <div className='px-10 flex flex-col gap-10 py-5'>
             <div className='flex gap-4'>
-              <form onSubmit={handleSubmit(handleSorteo)} className='p-3 flex flex-col gap-2'>
-                <label htmlFor="numGanadores" className='font-medium'>Número de ganadores</label>
+              <form onSubmit={handleSubmit(handleSorteo)} className=' flex  '>
+                <aside className='flex flex-col gap-3'>
+                    <label htmlFor="numGanadores" className='font-medium'>Número de ganadores</label>
                 <input type="number" className='px-3 py-1 rounded border w-64' id='numGanadores' {...register('numGanadores', { required: true, valueAsNumber: true })} />
-                <div className='flex gap-5'>
-                  <button className='px-3 py-1 rounded-md border font-medium' type='submit'>Enviar</button>
-                  <ButtonLayout content='Cerrar' onClick={onClose} />
+                </aside>
+              
+                <div className=' mt-9 ml-5'>
+                  <button className='px-3 py-1 rounded-md border font-medium' type='submit'>Generar sorteo</button>
                 </div>
               </form>
             </div>
@@ -113,6 +115,10 @@ const ParticipantesModal: React.FC<EventoId> = ({ id }) => {
               <AcordionModal eventoId={eventoId}  />
             </div>
           </div>
+          <div className='px-10 py-2 ml-10 flex justify-end '>
+<ButtonLayout content='Cerrar' onClick={onClose} />
+          </div>
+          
         </ModalContent>
       </Modal>
     </>

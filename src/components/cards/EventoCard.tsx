@@ -69,18 +69,18 @@ export const EventoCard = () => {
   <p className="mt-1 text-gray-600 dark:text-neutral-400">
        {item.descripcion}
       </p>
+      <p>Entradas: {item.entradas}</p>
       <div className="mt-3 flex flex-wrap gap-2">
-         
-           <FechaModal eventoId={item.id} userId={userId} fechas={item.fechas_evento.map((item => item.fecha))}/>   
-    
+      
+          <FechaModal eventoId={item.id} userId={userId} fechas={item.fechas_evento.map((item => item.fecha))}/>   
+            
         
          { user.rol === "ADMIN" ?
-           <ParticipantesModal id={item.id}/>
+           <ParticipantesModal id={item.id} entradas={item.entradas} />
         :
         null
         }
 
-  
           {user.rol === "ADMIN" ?
           <ConfirmDelete onClick={() => handleDelete(item.id)}/>
           :

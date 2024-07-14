@@ -6,7 +6,7 @@ import { Evento } from "../interface/evento";
 export const crearEventoRequest = async(data:any): Promise<any> => {
     try {
         const res = await clienteAxios.post("/crearEvento", data)
-        return res.data;
+        return res;
     } catch (error) {
         console.log(error)
     }

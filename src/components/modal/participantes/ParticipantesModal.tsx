@@ -13,6 +13,7 @@ import { ScrollShadow } from '@nextui-org/react';
 
 interface EventoId {
   id: number;
+  entradas: number;
 }
 
 interface GanadoresProps {
@@ -20,14 +21,14 @@ interface GanadoresProps {
   numGanadores: number;
 }
 
-const ParticipantesModal: React.FC<EventoId> = ({ id }) => {
+const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
   const { data, isLoading, isError } = useQuery<Participante[]>({
     queryKey: ["id", id],
     queryFn: () => participanteByIdEvento(id),
     enabled: !!id
   });
 
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register, formState: { errors }  } = useForm();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const eventoId = id;
@@ -62,7 +63,7 @@ const ParticipantesModal: React.FC<EventoId> = ({ id }) => {
 
   return (
     <>
-      <Button onClick={onOpen}>Abrir Participantes</Button>
+      <Button onClick={onOpen}>Participantes</Button>
 
       <Modal isOpen={isOpen} onClose={onClose} size='4xl'>
         <ModalOverlay />
@@ -79,7 +80,7 @@ const ParticipantesModal: React.FC<EventoId> = ({ id }) => {
                       className='max-w-[900px] max-h-[300px]'
                       >
                 <Table size='sm'>
-                  <Thead>
+                  <Thead className=''>
                     <Tr>
                       <Th>Nombre del participante</Th>
                       <Th>Sector</Th>
@@ -87,9 +88,7 @@ const ParticipantesModal: React.FC<EventoId> = ({ id }) => {
                       <Th>Fechas seleccionada</Th>
                     </Tr>
                   </Thead>
-                  <Tbody>
-                    {data.map((item: Participante, index: number) => (
-                     
+                  <Tbody>  {data.map((item: Participante, index: number) => (
                       <Tr key={index}>
                         <Td className='capitalize'>{item.usuario.nombre}</Td>
                         <Td className='capitalize'>{item.usuario.sector}</Td>
@@ -100,7 +99,6 @@ const ParticipantesModal: React.FC<EventoId> = ({ id }) => {
                           ))}
                         </Td>
                       </Tr>
-                   
                     ))}
                   </Tbody>
                 </Table>
@@ -108,17 +106,25 @@ const ParticipantesModal: React.FC<EventoId> = ({ id }) => {
               </TableContainer>
             </div>
           </ModalBody>
-          <div className='px-10 flex flex-col gap-10 py-5 border '>
-            <div className='flex gap-4 border p-3 rounded-md shadow-xl'>
+          <div className='px-10 flex flex-col gap-10 py-5  '>
+            <div className='flex gap-4  p-3 rounded-md '>
               <form onSubmit={handleSubmit(handleSorteo)} className=' flex  '>
                 <aside className='flex flex-col gap-3'>
                     <label htmlFor="numGanadores" className='font-medium'>Número de ganadores</label>
-                <input type="number" className='px-3 py-1 rounded border w-64' id='numGanadores' {...register('numGanadores', { required: true, valueAsNumber: true })} />
+                   
+                <input type="number" className='px-3 py-1 rounded border w-64' id='numGanadores' {...register('numGanadores', { required: true, valueAsNumber: true, 
+                  validate:{lessThanHundred: (value) =>  parseInt(value) <= entradas}
+                })} /> 
+            {errors?.numGanadores?.type == "lessThanHundred" && (
+     <span className=' font-medium text-neutral-700 w-10/12'> La cantidad de ganadores no puede ser mas de {entradas}</span>
+  )}
+                <span>Cantidad entradas: {entradas}</span>
                 </aside>
               
-                <div className=' mt-9 ml-5'>
+                <div className='absolute  left-80 mt-9 ml-5'>
                   <button className='px-3 py-1 rounded-md border font-medium' type='submit'>Generar sorteo</button>
-                </div>
+                </div>          
+                      
               </form>
             </div>
             <div>

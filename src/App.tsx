@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/ReactToastify.css';
 import CrearEventoPage from './pages/CrearEventoPage'
+import RegisterPage from './pages/RegisterPage'
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home/>} />
+        <Route path='/registro' element={<RegisterPage/>} />
         <Route path='/login' element={<LoginPage/>} />
         <Route element={<ProtectedRoute isAllowed={isAuth} />}> 
 

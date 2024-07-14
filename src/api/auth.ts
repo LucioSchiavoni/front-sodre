@@ -28,7 +28,7 @@ export const auth = async() => {
 export const registerRequest = async(data:any): Promise<any> => {
     try {
         const res = await clienteAxios.post("/registro", data)
-        return res.data
+        return res
     } catch (error) {
         console.log(error)
     }

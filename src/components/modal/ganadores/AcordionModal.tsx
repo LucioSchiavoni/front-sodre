@@ -55,7 +55,7 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
     if (!data || !Array.isArray(data) || data.length === 0) {
         return (
             <div>
-                <p className='text-xl text-center text-gray-700'>Sin ganadores aun.</p>
+                <p className='text-xl text-center text-gray-500'>Sin ganadores aun.</p>
             </div>
         );
     }
@@ -63,7 +63,7 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
     if(data)
   return (
     <>
-    <Accordion defaultIndex={[0]} allowMultiple className='border rounded-md '>
+    <Accordion defaultIndex={[0]} allowMultiple className=' rounded-md '>
   <AccordionItem className=''>
     <h2>
       <AccordionButton>

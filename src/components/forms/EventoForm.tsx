@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { crearEventoRequest } from '../../api/evento';
 import { MdDelete } from "react-icons/md";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { toast } from 'react-toastify';
 
 const EventoForm = () => {
   const { handleSubmit, register } = useForm();
@@ -43,8 +44,8 @@ const EventoForm = () => {
       formData.append('fechas_evento', JSON.stringify(fechas));
       formData.append('entradas', data.entradas);
 
-      await crearEventoRequest(formData)
-    
+     const create = await crearEventoRequest(formData)
+        toast.success(create.data.success)
     } catch (error) {
       console.log(error);
     }

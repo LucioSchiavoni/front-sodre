@@ -4,6 +4,7 @@ import { CrearParticipante } from "../../interface/participante";
 import { useState } from "react";
 import { obtenerFecha } from "../../utils/FechaFormat";
 import { crearParticipante } from "../../api/participante";
+import { Select } from '@chakra-ui/react'
 
 interface FechaProps {
     fechas: string[];
@@ -48,7 +49,7 @@ const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
   return (
     <>
     <Button onClick={onOpen}>
-        Abrir
+       Participar en el sorteo
     </Button>
     <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
     <ModalOverlay />
@@ -70,11 +71,10 @@ const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
         ))}
             </aside>
             <aside className="flex-1">
-                    <p className="mb-2 font-semibold">Numero de entradas</p>
-            <select name="cantidad_entradas" value={entradas} onChange={ (e) => setEntradas(e.target.value)} id="cantidad_entradas" className="px-3 py-1 border rounded-md shadow-xl w-24 " required>
-                <option value="1">1</option>
-                <option value="2">2</option>
-            </select>
+                    <Select placeholder='Cantidad de entradas' value={entradas} onChange={ (e) => setEntradas(e.target.value)} id="cantidad_entradas">
+                  <option value='1'>1</option>
+                  <option value='2'>2</option>
+                  </Select>
             </aside>
         </div>
         <ModalCloseButton/>

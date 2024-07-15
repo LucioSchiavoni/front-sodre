@@ -8,6 +8,8 @@ import ParticipantesModal from "../modal/participantes/ParticipantesModal";
 import Image from '../../assets/sodre-default.jpg'
 import { toast } from "react-toastify";
 import ConfirmDelete from "../modal/delete/ConfirmDelete";
+import { motion } from "framer-motion";
+import { slideInFromLeft, slideInFromTop } from "../../layout/motion";
 
 export const EventoCard = () => {
 
@@ -41,58 +43,69 @@ export const EventoCard = () => {
     if(data)
   return (
     <>
-<div className="py-12 grid grid-cols-2 gap-4 px-10 sm:gap-6 md:gap-8 lg:gap-12 ">
+<motion.div initial="hidden" animate="visible" className="py-12 grid grid-cols-1 gap-16 ">
     { 
         data.map((item: Evento, index) => (
-  
-            <div className="group block w-8/12 border shadow-xl rounded-md px-4"  key={index}>
-    <div className="aspect-w-16 aspect-h-12 overflow-hidden shadow-xl bg-gray-100 rounded-2xl dark:bg-neutral-800">
-      {
-        item.imagen ? <img className="group-hover:scale-105 h-[430px] shadow-xl transition-transform duration-500 ease-in-out object-cover rounded-2xl" src={item.imagen} alt="Image Description"/>
-        :
-        <img className="group-hover:scale-105 transition-transform shadow-xl duration-500 ease-in-out object-cover rounded-2xl" src={Image} alt="Image Description"/>
-      }
-      
-    </div>
+          
+          
+<div key={index} className="relative w-[80rem] hover:scale-110 transition-all duration-300 delay-150 h-[35rem] bg-cover bg-center rounded-lg overflow-hidden shadow-lg " style={{ backgroundImage: `url(${item.imagen === null ? Image : item.imagen})` }}>
+<div className="absolute inset-0  hover:bg-black transition-all duration-300 delay-150  hover:bg-opacity-50 ">
+  <article className="p-8 text-white ">
+     <motion.h2 variants={slideInFromTop} className="text-3xl font-bold  ">{item.nombre_evento}</motion.h2>
+  </article>
 
-    <div className="pt-4 py-4">
-      <h3 className="relative inline-block font-medium text-lg text-black before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-neutral-900 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-gray-500">
-        {item.nombre_evento}
-      </h3>
-     {
-              item.fechas_evento.map((item, index) => (
-                <div key={index} className="flex gap-2">
-                <label className="ml-2">{obtenerFecha(item.fecha)}</label>
-                </div>
-                    ))
-            }
-  <p className="mt-1 text-gray-600 dark:text-neutral-400">
-       {item.descripcion}
-      </p>
-      <p>Entradas: {item.entradas}</p>
-      <div className="mt-3 flex flex-wrap gap-2">
-      
-          <FechaModal eventoId={item.id} userId={userId} fechas={item.fechas_evento.map((item => item.fecha))}/>   
-            
-        
-         { user.rol === "ADMIN" ?
-           <ParticipantesModal id={item.id} entradas={item.entradas} />
+    <div className="text-white flex justify-between p-10  mt-2 transition-all  ">
+       <div className="flex flex-col w-80 ">
+        <motion.p variants={slideInFromLeft(0.5)} className="text-neutral-800 text-xl font-medium">{item.descripcion}</motion.p>
+        <div className="flex flex-col mt-10 text-xl text-black">
+       <p>Fechas</p>
+        <div className="flex gap-5  text-xl">
+          
+        {item.fechas_evento.map((item, index) => (
+            <motion.p variants={slideInFromLeft(0.5)} key={index} className="text-neutral-800  font-medium">
+              {obtenerFecha(item.fecha)}
+          </motion.p>
+        ))}
+       </div>
+       </div>
+       </div>
+       {
+        user.rol === "USER" ?
+        <>
+        <div className="absolute bottom-10 ">
+          <FechaModal fechas={item.fechas_evento.map((item => item.fecha))} userId={userId} eventoId={item.id}/>
+        </div>
+        </>
         :
         null
-        }
+       }
+       <div>
 
-          {user.rol === "ADMIN" ?
-          <ConfirmDelete onClick={() => handleDelete(item.id)}/>
-          :
-          null
-        }
-    
+       </div>
+    {
+          user.rol === "ADMIN" ?
+     <>
+     <div className="flex gap-2 absolute bottom-10 right-24 ">
+      <ParticipantesModal id={item.id} entradas={item.entradas} />
+      <ConfirmDelete onClick={() => handleDelete(item.id)}/>
+
       </div>
+     </>
+      :
+      null
+          
+        } 
+      
+
+  
     </div>
-  </div>
+</div>
+</div>
+         
    ))
     }  
-     </div>
+     </motion.div>
     </>
   )
 }
+

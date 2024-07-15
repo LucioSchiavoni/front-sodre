@@ -1,4 +1,4 @@
-import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useDisclosure } from '@chakra-ui/react';
+import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useDisclosure } from '@chakra-ui/react';
 import ButtonLayout from '../../../utils/ButtonLayout';
 import { Participante } from '../../../interface/participante';
 import { useQuery } from '@tanstack/react-query';
@@ -63,7 +63,7 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
 
   return (
     <>
-      <Button onClick={onOpen}>Participantes</Button>
+      <button onClick={onOpen} className='rounded-md bg-neutral-800 px-6 py-1 font-medium text-2xl'>Ver participantes</button>
 
       <Modal isOpen={isOpen} onClose={onClose} size='4xl'>
         <ModalOverlay />

@@ -1,43 +1,67 @@
 import { Link } from "react-router-dom"
-import Video from '../assets/background-video.mp4'
+import Image from '../assets/Logo_sodre.jpg'
+import LoginForm from "../components/forms/LoginForm"
+import { motion } from "framer-motion"
+import { slideInFromLeft, slideInFromTop } from "../layout/motion"
+import { Tabs, TabList, Tab, TabPanel, TabPanels } from "@chakra-ui/react"
+import RegisterForm from "../components/forms/RegisterForm"
+
 
 const Home = () => {
+
   return ( 
-    
-   
-   
+    <>
+    <motion.div initial="hidden" animate="visible" className="bg-white dark:bg-gray-900">
+    <div className="flex justify-center h-screen">
+        <div className="hidden bg-cover lg:block lg:w-3/4 bg-center bg-[url(https://beneficios.brou.com.uy/upload/beneficios/2256fc9b6b5bd2828150e0e679ad3959.png)]">
+            <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
+                <div>
+                    <motion.div variants={slideInFromTop} className="text-3xl font-bold text-white sm:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-800">Sorteos MEC</motion.div>
+
+                    <motion.div variants={slideInFromLeft(0.5)} className="max-w-xl mt-3 text-white text-2xl">
+                        Sorteo de entradas para el Ministerio de Educacion y Cultura
+                    </motion.div>
+                </div>
+            </div>
+        </div>
+        <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
+            <div className="flex-1">
+
+            <div className="flex justify-center mx-auto">
+                        <img className=" h-24 w-24" src={Image} alt=""/>
+                    </div>
+                <Tabs size='md' variant='enclosed'>
+  <TabList>
+    <Tab className="font-medium text-2xl">Inicia sesión</Tab>
+    <Tab className="font-medium text-2xl">Registrarse</Tab>
+  </TabList>
+  <TabPanels>
+    <TabPanel>
     <div className="">
-   
-   <video 
-        autoPlay
-        muted
-        loop
-        className=' absolute top-0 left-0 z-[-1] '
-        >
 
-        <source src={Video} type="video/mp4" />
-     </video>
-      
-      <article className="flex justify-center">
-           <h1 className="text-5xl font-semibold  text-white absolute mt-60">
-        Sorteo de entradas para el sodre
-            </h1>
-<aside className="absolute mt-80 gap-10 flex">
-   <Link to='/registro' className="px-3 py-1 rounded-md hover:bg-gray-200  border shadow-xl w-80  bg-white  text-black  text-2xl font-medium  text-center">
-  Registrarse
-  </Link>
-   <Link to='/login' className="px-3 py-1 rounded-md  border shadow-xl w-80 hover:bg-gray-200 bg-white  text-black  text-2xl font-medium  text-center">
-        Login
-        </Link> 
-</aside>
- 
+<LoginForm/>
+  <aside className="flex flex-col justify-center items-center">
+  <p className="mt-6 text-xl font-semibold text-center mb-2 text-neutral-900">No tienes cuenta aun? </p>
+    <Link to='/registro' className="px-3 py-1 border rounded-md w-64 text-xl bg-neutral-900 text-white text-center font-medium focus:outline-none focus:underline hover:underline">Registrarse</Link>
+  </aside>
 
-        
-      </article>
-     
-   
+</div>
+    </TabPanel>
+    <TabPanel>
+      <RegisterForm/>
+    </TabPanel>
+  </TabPanels>
+</Tabs>
+                
+            </div>
+        </div>
     </div>
+</motion.div>
+    </>
+   
   )
 }
 
 export default Home
+
+

@@ -48,9 +48,9 @@ const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
 
   return (
     <>
-    <Button onClick={onOpen}>
+    <button className="px-3 py-1 rounded-md shadow-md bg-neutral-900 text-xl font-medium" onClick={onOpen}>
        Participar en el sorteo
-    </Button>
+    </button>
     <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
     <ModalOverlay />
     <ModalContent>

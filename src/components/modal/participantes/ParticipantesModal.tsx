@@ -1,4 +1,4 @@
-import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useDisclosure } from '@chakra-ui/react';
+import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Table, TableContainer, Tbody, Td, Thead, Tr, useDisclosure } from '@chakra-ui/react';
 import ButtonLayout from '../../../utils/ButtonLayout';
 import { Participante } from '../../../interface/participante';
 import { useQuery } from '@tanstack/react-query';
@@ -112,7 +112,7 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
                 <aside className='flex flex-col gap-3'>
                     <label htmlFor="numGanadores" className='font-medium'>Número de ganadores</label>
                    
-                <input type="number" className='px-3 py-1 rounded border w-64' id='numGanadores' {...register('numGanadores', { required: true, valueAsNumber: true, 
+                <input type="number" className='px-3 py-1 text-black rounded border w-64' id='numGanadores' {...register('numGanadores', { required: true, valueAsNumber: true, 
                   validate:{lessThanHundred: (value) =>  parseInt(value) <= entradas}
                 })} /> 
             {errors?.numGanadores?.type == "lessThanHundred" && (
@@ -129,9 +129,9 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
             </div>
             <div>
               {/* Datos de ganadores */}
- <AcordionModal eventoId={eventoId}  />
-          
-             
+              
+             <AcordionModal eventoId={eventoId}  />
+           
             </div>
           </div>
           <div className='px-10 py-2 ml-10 flex justify-end '>

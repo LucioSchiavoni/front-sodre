@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {MdOutlineDarkMode} from 'react-icons/md'
-import {BsSun} from 'react-icons/bs'
+import Image from '../assets/Logo_sodre.jpg'
 
 const DarkMode = () => {
     const [theme, setTheme] = useState(() => {
@@ -35,7 +35,7 @@ const handleTheme = async () => {
   return (
     <>
     <button onClick={handleTheme} className="p-2 flex justify-center items-center w-12 ml-4 rounded-full shadow-xl dark:bg-white bg-gray-900 text-white dark:text-gray-800">
-    <span className="hidden dark:block text-2xl"><BsSun/></span>
+    <span className="hidden dark:block text-2xl"><img src={Image} className="h-7.5" /> </span>
     <span className="dark:hidden text-2xl"><MdOutlineDarkMode/></span>
     </button>
     </>

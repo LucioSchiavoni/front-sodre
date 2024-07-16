@@ -1,10 +1,12 @@
-import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
+import {  Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
 import { toast } from "react-toastify";
 import { CrearParticipante } from "../../interface/participante";
 import { useState } from "react";
 import { obtenerFecha } from "../../utils/FechaFormat";
 import { crearParticipante } from "../../api/participante";
 import { Select } from '@chakra-ui/react'
+import { MdOutlineDateRange } from "react-icons/md";
+
 
 interface FechaProps {
     fechas: string[];
@@ -57,16 +59,16 @@ const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
         <ModalHeader>Seleccione los datos para participar</ModalHeader>
         <div className="px-8 flex flex-col gap-5">
             <aside className="flex flex-col ">
-                <p className="mb-2 font-semibold">Fechas que desea ir</p>
+                <p className="mb-2 font-semibold flex gap-1 items-center"> Fechas que desea ir</p>
             {fechas.map((fechaItem, index) => (
-          <div key={index} className="flex gap-2 font-semibold capitalize">
+          <div key={index} className="flex gap-2 items-center font-semibold capitalize">
              <input 
                     type="checkbox" 
                     value={fechaItem} 
                     onChange={() => handleCheckboxChange(fechaItem)} 
                     checked={checkFecha.includes(fechaItem)}
                   />
-            {obtenerFecha(fechaItem)}
+             {obtenerFecha(fechaItem)} <span className=""><MdOutlineDateRange/></span> 
             </div>
         ))}
             </aside>

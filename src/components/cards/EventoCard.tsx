@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import ConfirmDelete from "../modal/delete/ConfirmDelete";
 import { motion } from "framer-motion";
 import { slideInFromLeft, slideInFromTop } from "../../layout/motion";
+import { MdOutlineDateRange } from "react-icons/md";
 
 export const EventoCard = () => {
 
@@ -48,9 +49,9 @@ export const EventoCard = () => {
         data.map((item: Evento, index) => (
           
           
-<div key={index} className="relative w-[80rem] hover:scale-110 transition-all duration-300 delay-150 h-[35rem] bg-cover bg-center rounded-lg overflow-hidden shadow-lg " style={{ backgroundImage: `url(${item.imagen === null ? Image : item.imagen})` }}>
+<div key={index} className="relative w-[80rem] hover:scale-110 transition-all duration-300 delay-150 h-[35rem] bg-cover bg-center rounded-lg overflow-hidden shadow-lg " style={{ backgroundImage: `url(${item.imagen === "" ? Image : item.imagen})` }}>
 <div className="absolute inset-0  hover:bg-black transition-all duration-300 delay-150  hover:bg-opacity-50 ">
-  <article className="p-8 text-white ">
+  <article className="p-8 text-neutral-900 ">
      <motion.h2 variants={slideInFromTop} className="text-3xl font-bold  ">{item.nombre_evento}</motion.h2>
   </article>
 
@@ -58,8 +59,8 @@ export const EventoCard = () => {
        <div className="flex flex-col w-80 ">
         <motion.p variants={slideInFromLeft(0.5)} className="text-neutral-800 text-xl font-medium">{item.descripcion}</motion.p>
         <div className="flex flex-col mt-10 text-xl text-black">
-       <p>Fechas</p>
-        <div className="flex gap-5  text-xl">
+       <p className="flex items-center gap-2 font-semibold"> <MdOutlineDateRange /> Fechas</p>
+        <div className="flex gap-3 mt-2  text-xl">
           
         {item.fechas_evento.map((item, index) => (
             <motion.p variants={slideInFromLeft(0.5)} key={index} className="text-neutral-800  font-medium">

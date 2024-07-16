@@ -13,7 +13,7 @@ const Home = () => {
     <>
     <motion.div initial="hidden" animate="visible" className="bg-white dark:bg-gray-900">
     <div className="flex justify-center h-screen">
-        <div className="hidden bg-cover lg:block lg:w-3/4 bg-center bg-[url(https://beneficios.brou.com.uy/upload/beneficios/2256fc9b6b5bd2828150e0e679ad3959.png)]">
+        <div className="hidden bg-cover lg:block lg:w-3/4 bg-center ">
             <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
                 <div>
                     <motion.div variants={slideInFromTop} className="text-3xl font-bold text-white sm:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-800">Sorteos MEC</motion.div>

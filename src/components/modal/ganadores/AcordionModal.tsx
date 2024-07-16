@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 
 interface IdProps {
     eventoId: number
+    
 }
 
 const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
@@ -77,27 +78,27 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
                     <TableContainer>
   <Table variant='simple' className=''>
     <Thead>
-      <Tr>
-        <Th>Nombre</Th>
-        <Th>Email</Th>
-        <Th >Enviar correo</Th>
-        <Th>Borrar ganador</Th>
+      <tr className=''>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th >Enviar correo</th>
+        <th>Borrar ganador</th>
        
-      </Tr>
+      </tr>
     </Thead>
-    <Tbody>
+    <tbody className=''>
       {
         data.map((item: Ganadores, index: number) => (
-      <Tr key={index} className=''>
-        <Td className='capitalize'>{item.usuario.nombre}</Td> 
-        <Td>{item.usuario.email}</Td>
-     <Td> <button className='px-3 py-1 border rounded-md' onClick={() => handleSend(item.usuario.nombre, item.usuario.email || "")}>Enviar </button></Td>  
-    <Td><button className='px-3 py-1 border rounded-md' onClick={() => handleDelete(item.id)}>Eliminar</button></Td>    
+      <tr key={index} className='dark:text-white '>
+        <td className='capitalize'>{item.usuario.nombre}</td> 
+        <td>{item.usuario.email}</td>
+     <td> <button className='px-3 py-1 border rounded-md' onClick={() => handleSend(item.usuario.nombre, item.usuario.email || "")}>Enviar </button></td>  
+    <td><button className='px-3 py-1 border rounded-md' onClick={() => handleDelete(item.id)}>Eliminar</button></td>    
       
-      </Tr>
+      </tr>
         ))
       } 
-      </Tbody>
+      </tbody>
   </Table>
 </TableContainer>
    

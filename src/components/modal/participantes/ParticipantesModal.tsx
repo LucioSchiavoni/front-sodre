@@ -65,28 +65,28 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
     <>
       <button onClick={onOpen} className='rounded-md bg-neutral-800 px-6 py-1 font-medium text-2xl'>Ver participantes</button>
 
-      <Modal isOpen={isOpen} onClose={onClose} size='4xl'>
+      <Modal isOpen={isOpen} onClose={onClose} size='4xl' >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent className='dark:bg-neutral-900 dark:text-white'>
           <h2 className='text-center mt-8 text-2xl font-medium'>Participantes del sorteo</h2>
           <ModalCloseButton />
           <ModalBody>
-            <div className='px-3 py-2 flex flex-col' style={{ maxHeight: '60vh', overflowY: 'auto' }}>
+            <div className='px-3 py-2 flex flex-col ' style={{ maxHeight: '60vh', overflowY: 'auto' }}>
               <TableContainer>
                  <ScrollShadow 
                       //hideScrollBar
                       offset={100}
                       orientation='horizontal'
-                      className='max-w-[900px] max-h-[300px]'
+                      className='max-w-[900px] max-h-[300px] '
                       >
                 <Table size='sm'>
-                  <Thead className=''>
-                    <Tr>
-                      <Th>Nombre del participante</Th>
-                      <Th>Sector</Th>
-                      <Th isNumeric>Cantidad de entradas</Th>
-                      <Th>Fechas seleccionada</Th>
-                    </Tr>
+                  <Thead >
+                    <tr className='dark:text-white'>
+                      <th>Nombre del participante</th>
+                      <th>Sector</th>
+                      <th >Cantidad de entradas</th>
+                      <th>Fechas seleccionada</th>
+                    </tr>
                   </Thead>
                   <Tbody>  {data.map((item: Participante, index: number) => (
                       <Tr key={index}>
@@ -129,11 +129,13 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
             </div>
             <div>
               {/* Datos de ganadores */}
-              <AcordionModal eventoId={eventoId}  />
+ <AcordionModal eventoId={eventoId}  />
+          
+             
             </div>
           </div>
           <div className='px-10 py-2 ml-10 flex justify-end '>
-<ButtonLayout content='Cerrar' onClick={onClose} />
+<ButtonLayout content='Cerrar' onClick={onClose}  />
           </div>
           
         </ModalContent>

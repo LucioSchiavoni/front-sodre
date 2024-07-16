@@ -9,7 +9,7 @@ const Navbar = () => {
     const logout = useAuthStore((state) => state.logout)
     // const user = useAuthStore((state) => state.profile)
   return (
-    <div className="flex justify-between gap-2 p-3 border rounded-md w-4/12 m-auto shadow-xl">
+    <div className="flex bg-white dark:bg-neutral-900 justify-between gap-2 p-3  rounded-md w-4/12 m-auto shadow-xl">
          <DarkMode/>
       <img src={Image} alt="" className='h-9' />
         <Tooltip label="Cerrar sesion">

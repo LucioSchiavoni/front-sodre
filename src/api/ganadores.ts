@@ -44,3 +44,12 @@ export const deleteGanadoresRequest = async(id:number) => {
         console.log(error)
     }
 }
+
+export const fechasByIdParticipante = async(id: number) => {
+    try {
+        const result = await clienteAxios.get(`/fechas/ganadores/${id}`)
+        return result;
+    } catch (error) {
+        console.log(error)
+    }
+}

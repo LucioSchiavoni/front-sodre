@@ -1,17 +1,20 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Table, TableContainer, Thead } from '@chakra-ui/react'
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Table, TableContainer, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
 import { deleteGanadoresRequest, getGanadoresRequest, sendEmailRequest } from '../../../api/ganadores'
 import { Ganadores } from '../../../interface/ganadores'
 import { toast } from 'react-toastify'
+import { MdDelete } from 'react-icons/md'
+
+
 
 
 
 interface IdProps {
-    eventoId: number
-    
+    eventoId: number;
 }
 
 const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
+
 
 
     const {data, isLoading} = useQuery<Ganadores[]>({
@@ -19,6 +22,7 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
         queryFn: () => getGanadoresRequest(eventoId)
 
     })
+
 
 
     const handleSend = async(nombre: string, email:string) => {
@@ -30,6 +34,9 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
         console.log(error)
       }
     }
+
+    
+
 
    
 
@@ -78,24 +85,24 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
                     <TableContainer>
   <Table variant='simple' className=''>
     <Thead>
-      <tr className=''>
-        <th>Nombre</th>
-        <th>Email</th>
-        <th >Enviar correo</th>
-        <th>Borrar ganador</th>
+      <Tr  >
+        <Th className='dark:text-white'>Nombre</Th>
+        
+        <Th className='dark:text-white'>Enviar correo</Th>
+        <Th className='dark:text-white'>Borrar ganador</Th>
        
-      </tr>
+      </Tr>
     </Thead>
     <tbody className=''>
       {
         data.map((item: Ganadores, index: number) => (
-      <tr key={index} className='dark:text-white '>
-        <td className='capitalize'>{item.usuario.nombre}</td> 
-        <td>{item.usuario.email}</td>
-     <td> <button className='px-3 py-1 border rounded-md' onClick={() => handleSend(item.usuario.nombre, item.usuario.email || "")}>Enviar </button></td>  
-    <td><button className='px-3 py-1 border rounded-md' onClick={() => handleDelete(item.id)}>Eliminar</button></td>    
+      <Tr key={index} className='dark:text-white '>
+        <Td className='capitalize'>{item.usuario.nombre}</Td> 
+ 
+     <Td> <button className='px-3 py-1 border dark:border-neutral-700 dark:hover:bg-neutral-700 hover:bg-gray-200 rounded-md' onClick={() => handleSend(item.usuario.nombre, item.usuario.email || "")}>Enviar </button></Td>  
+    <Td><button className='px-3 py-1 border rounded-md flex items-center text-xl dark:border-neutral-700 dark:hover:bg-neutral-700 hover:bg-gray-200' onClick={() => handleDelete(item.id)}> <MdDelete/></button></Td>    
       
-      </tr>
+      </Tr>
         ))
       } 
       </tbody>

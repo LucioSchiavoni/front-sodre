@@ -9,7 +9,7 @@ import AcordionModal from '../ganadores/AcordionModal';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { ScrollShadow } from '@nextui-org/react';
-
+import { IoTicket } from "react-icons/io5";
 
 interface EventoId {
   id: number;
@@ -19,6 +19,7 @@ interface EventoId {
 interface GanadoresProps {
   eventoId: number;
   numGanadores: number;
+  fecha_seleccionada: string;
 }
 
 const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
@@ -37,7 +38,8 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
     try {
       const dataJson: GanadoresProps = {
         eventoId: eventoId,
-        numGanadores: formData.numGanadores
+        numGanadores: formData.numGanadores,
+        fecha_seleccionada: formData.fecha_seleccionada
       };
       const result = await generarGanadoresRequest(dataJson);
       toast.success(result.data.success);
@@ -83,7 +85,7 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
                   <Thead >
                     <tr className='dark:text-white'>
                       <th>Nombre del participante</th>
-                      <th>Sector</th>
+        
                       <th >Cantidad de entradas</th>
                       <th>Fechas seleccionada</th>
                     </tr>
@@ -91,7 +93,7 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
                   <Tbody>  {data.map((item: Participante, index: number) => (
                       <Tr key={index}>
                         <Td className='capitalize'>{item.usuario.nombre}</Td>
-                        <Td className='capitalize'>{item.usuario.sector}</Td>
+                        
                         <Td textAlign="center">{item.cantidad_entradas}</Td>
                         <Td className='flex gap-2 px-6'>
                           {item.fecha_seleccionada.map((fechaItem, fechaIndex) => (
@@ -118,19 +120,21 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
             {errors?.numGanadores?.type == "lessThanHundred" && (
      <span className=' font-medium text-neutral-700 w-10/12'> La cantidad de ganadores no puede ser mas de {entradas}</span>
   )}
-                <span>Cantidad entradas: {entradas}</span>
+
+    
+                <span className='flex gap-2 items-center text-xl'>Cantidad entradas: {entradas} <IoTicket/></span>
                 </aside>
               
                 <div className='absolute  left-80 mt-9 ml-5'>
-                  <button className='px-3 py-1 rounded-md border font-medium' type='submit'>Generar sorteo</button>
+                  <button className='px-3 py-1 rounded-md border dark:border-neutral-700 dark:hover:bg-neutral-700 font-medium flex gap-2' type='submit'>Generar sorteo <span className='text-center mt-1  text-xl'><IoTicket/></span></button>
                 </div>          
                       
               </form>
             </div>
             <div>
               {/* Datos de ganadores */}
-              
-             <AcordionModal eventoId={eventoId}  />
+        
+            <AcordionModal eventoId={eventoId}  /> 
            
             </div>
           </div>

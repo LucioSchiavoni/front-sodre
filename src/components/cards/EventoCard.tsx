@@ -48,7 +48,6 @@ export const EventoCard = () => {
     { 
         data.map((item: Evento, index) => (
           
-          
 <div key={index} className="relative w-[80rem] hover:scale-110 transition-all duration-300 delay-150 h-[35rem] bg-cover bg-center rounded-lg overflow-hidden shadow-lg " style={{ backgroundImage: `url(${item.imagen === "" ? Image : item.imagen})` }}>
 <div className="absolute inset-0  hover:bg-black transition-all duration-300 delay-150  hover:bg-opacity-50 ">
   <article className="p-8 text-neutral-900 ">
@@ -60,6 +59,7 @@ export const EventoCard = () => {
         <motion.p variants={slideInFromLeft(0.5)} className="text-neutral-800 text-xl font-medium">{item.descripcion}</motion.p>
         <div className="flex flex-col mt-10 text-xl text-black">
        <p className="flex items-center gap-2 font-semibold"> <MdOutlineDateRange /> Fechas</p>
+       
         <div className="flex gap-3 mt-2  text-xl">
           
         {item.fechas_evento.map((item, index) => (
@@ -87,7 +87,7 @@ export const EventoCard = () => {
           user.rol === "ADMIN" ?
      <>
      <div className="flex gap-2 absolute bottom-10 right-24 ">
-      <ParticipantesModal id={item.id} entradas={item.entradas} />
+      <ParticipantesModal id={item.id}  entradas={item.entradas} />
       <ConfirmDelete onClick={() => handleDelete(item.id)}/>
 
       </div>

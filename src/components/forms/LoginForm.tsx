@@ -71,7 +71,7 @@ const LoginForm = () => {
           </svg>
         </div>
       </div>
-      <button className="px-3 py-1 rounded-md text-white bg-neutral-900 hover:bg-neutral-800 text-xl font-medium">Ingresar</button>
+      <button className="px-3 py-1 rounded-md dark:bg-white dark:text-black text-white bg-neutral-900 hover:bg-neutral-800 text-xl font-medium">Ingresar</button>
       </form>
     </div>
     

@@ -206,7 +206,7 @@ return (
       peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-neutral-500 dark:text-neutral-500">Sector</label>
      </div>
      <div >
-                    <button type="submit" className="px-3 py-1 rounded-md border font-medium text-xl w-64  shadow-xl text-white bg-neutral-800 hover:bg-neutral-700">Crear cuenta</button>
+                    <button type="submit" className="px-3 py-1 dark:bg-white dark:text-black rounded-md border font-medium text-xl w-64  shadow-xl text-white bg-neutral-800 hover:bg-neutral-700">Crear cuenta</button>
      </div>
 
         </form>

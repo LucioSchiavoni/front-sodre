@@ -52,6 +52,10 @@ const EventoForm = () => {
         toast.success(create.data.success)
     } catch (error) {
       console.log(error);
+    }finally{
+      setTimeout(() => (
+        window.location.reload()
+      ), 2000)
     }
   };
   return (
@@ -66,7 +70,7 @@ const EventoForm = () => {
                     </div>
                     <div className=" items-center mt-6">
                <label htmlFor="" className=' text-neutral-800 font-semibold'>Descripcion</label>
-                <input type="text" id='entradas' required {...register('descripcion', {required: true})} className="block w-full px-3 mt-2 py-3 text-black bg-white border rounded-lg   dark:border-gray-600 focus:border-blue-400 dark:focus:border-neutral-900 focus:ring-neutral-900 focus:outline-none focus:ring focus:ring-opacity-40" />
+                <textarea  id='descripcion' required {...register('descripcion', {required: true})} className="block w-full px-3 mt-2 py-3 text-black bg-white border rounded-lg   dark:border-gray-600 focus:border-blue-400 dark:focus:border-neutral-900 focus:ring-neutral-900 focus:outline-none focus:ring focus:ring-opacity-40" > </textarea>
             </div>
             <label htmlFor="dropzone-file" className="flex items-center px-3 py-3 mx-auto mt-6 text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 ">
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

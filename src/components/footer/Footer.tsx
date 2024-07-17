@@ -2,7 +2,7 @@
 
 const Footer = () => {
   return (
-    <div className="absolute w-full bottom-0 border  text-black text-2xl">Footer</div>
+    <div className="w-full absolute  border text-white">Footer</div>
   )
 }
 

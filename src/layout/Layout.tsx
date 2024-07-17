@@ -7,20 +7,13 @@ import Footer from '../components/footer/Footer'
 const Layout = ({children}: {children: React.ReactNode}) => {
   return (
   <>
-  <div className='flex justify-center '>
+  <div className='flex justify-center  '>
   <StarsCanvas/>
-
-       <Navbar/>
-
- 
-
+      <Navbar/>
         <div className='mt-16 absolute z-50'>
           {children}
-            <Footer/> 
         </div>
-       
     </div>
-  
   </>
   
   )

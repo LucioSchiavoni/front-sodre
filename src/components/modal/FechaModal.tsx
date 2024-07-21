@@ -17,7 +17,7 @@ interface FechaProps {
 
 const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
 
-    const [entradas, setEntradas] = useState("");
+    // const [entradas, setEntradas] = useState("");
     const [checkFecha, setCheckFecha] = useState<string[]>([]);
 
 
@@ -35,7 +35,6 @@ const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
             usuarioId: userId,
             eventoId: eventoId,
             fecha_participante: checkFecha,
-            cantidad_entradas: parseInt(entradas)
           }
          const res = await crearParticipante(data)
          if(res.success){

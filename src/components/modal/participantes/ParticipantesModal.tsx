@@ -88,23 +88,16 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
                       >
                 <Table size='sm'>
                   <Thead >
-                    <tr className='dark:text-white'>
-                      <th>Nombre del participante</th>
+                    <tr className='dark:text-white  '>
+                      <th className='text-start'>Nombre del participante</th>
         
-                      <th >Cantidad de entradas</th>
-                      <th>Fechas seleccionada</th>
+                    
                     </tr>
                   </Thead>
                   <Tbody>  {data.map((item: Participante, index: number) => (
-                      <Tr key={index}>
+                      <Tr key={index} >
                         <Td className='capitalize'>{item.usuario.nombre}</Td>
-                        
-                        <Td textAlign="center">{item.cantidad_entradas}</Td>
-                        <Td className='flex gap-2 px-6'>
-                          {item.fecha_seleccionada.map((fechaItem, fechaIndex) => (
-                            <span className='flex py-2 capitalize' key={fechaIndex}>{obtenerFecha(fechaItem.fecha)}</span>
-                          ))}
-                        </Td>
+                      
                       </Tr>
                     ))}
                   </Tbody>

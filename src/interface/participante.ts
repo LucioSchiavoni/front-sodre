@@ -4,7 +4,6 @@ export interface CrearParticipante {
    usuarioId: number;
    eventoId: number;
    fecha_participante: string[];
-   cantidad_entradas: number;
 }
 
 export interface Participante {

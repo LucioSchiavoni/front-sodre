@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { Evento } from "../../interface/evento"
 import { deleteEventoRequest, mostrarEventosRequest } from "../../api/evento"
 import { useAuthStore } from "../../auth/auth";
@@ -14,8 +14,10 @@ import { MdOutlineDateRange } from "react-icons/md";
 
 export const EventoCard = () => {
 
+      const queryClient = useQueryClient();
+
     const { data, isLoading } = useQuery<Evento[], Error>({
-        queryKey: ["eventos"], 
+        queryKey: ['eventos'], 
         queryFn: mostrarEventosRequest,
       });
 
@@ -25,14 +27,13 @@ export const EventoCard = () => {
     const handleDelete = async(id: number) => {
       try {
         const res = await deleteEventoRequest(id)
+        queryClient.invalidateQueries({
+          queryKey: ['eventos'],
+          exact:true
+        });
         toast.info(res.data.success)
       } catch (error) {
         console.log(error)
-      }finally{
-        setTimeout(() => {
-          window.location.reload()
-        }, 2000) 
-        
       }
     }
 

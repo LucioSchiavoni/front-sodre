@@ -3,7 +3,7 @@ import { Evento } from "../interface/evento";
 
 
 
-export const crearEventoRequest = async(data:any): Promise<any> => {
+export const crearEventoRequest = async(data:FormData) => {
     try {
         const res = await clienteAxios.post("/crearEvento", data)
         return res;

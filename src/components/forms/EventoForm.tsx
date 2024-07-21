@@ -4,6 +4,7 @@ import { crearEventoRequest } from '../../api/evento';
 import { MdDelete } from "react-icons/md";
 import { toast } from 'react-toastify';
 import { MdDateRange } from "react-icons/md";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const EventoForm = () => {
   const { handleSubmit, register, formState: { errors } } = useForm<{
@@ -22,6 +23,8 @@ const EventoForm = () => {
     }
   };
 
+
+
   const handleFechaChange = (index: number, value: string) => {
     const newFechas = [...fechas];
     newFechas[index] = value;
@@ -37,6 +40,24 @@ const EventoForm = () => {
     setFechas(newFechas);
   };
 
+    const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn:crearEventoRequest, 
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey:['eventos'],
+        exact:true
+      });
+      toast.success('Evento creado con éxito');
+    },
+    onError: (error) => {
+      toast.error('Error al crear el evento');
+      console.error(error);
+    },
+  });
+
   const handleForm = async (data: any) => {
     try {
       const formData = new FormData();
@@ -47,17 +68,15 @@ const EventoForm = () => {
       formData.append('descripcion', data.descripcion);
       formData.append('fechas_evento', JSON.stringify(fechas));
       formData.append('entradas', data.entradas);
-
-     const create = await crearEventoRequest(formData)
-        toast.success(create.data.success)
+      
+      mutation.mutate(formData)
     } catch (error) {
       console.log(error);
-    }finally{
-      setTimeout(() => (
-        window.location.reload()
-      ), 2000)
     }
   };
+
+
+
   return (
     <section className=" ">
     <div className=" flex justify-center mt-5 px-6 mx-auto">

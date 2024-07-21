@@ -56,11 +56,17 @@ const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
     <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
     <ModalOverlay />
     <ModalContent>
-        <ModalHeader>Seleccione los datos para participar</ModalHeader>
-        <div className="px-8 flex flex-col gap-5">
+
+        <div className="px-8 p-9 flex flex-col gap-5">
             <aside className="flex flex-col ">
-                <p className="mb-2 font-semibold flex gap-1 items-center"> Fechas que desea ir</p>
-            {fechas.map((fechaItem, index) => (
+               
+            {fechas.length === 1 ? <>
+            <div className="text-center p-8 text-2xl font-semibold">
+              Desea participar del sorteo?
+              </div></>  : 
+<>
+               <p className="mb-2 font-semibold flex text-2xl gap-1 items-center"> Seleccione las fechas que desea ir</p>
+              {fechas.map((fechaItem, index) => (
           <div key={index} className="flex gap-2 items-center font-semibold capitalize">
              <input 
                     type="checkbox" 
@@ -71,20 +77,17 @@ const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
              {obtenerFecha(fechaItem)} <span className=""><MdOutlineDateRange/></span> 
             </div>
         ))}
+        
+        </>}
             </aside>
-            <aside className="flex-1">
-                    <Select placeholder='Cantidad de entradas' value={entradas} onChange={ (e) => setEntradas(e.target.value)} id="cantidad_entradas">
-                  <option value='1'>1</option>
-                  <option value='2'>2</option>
-                  </Select>
-            </aside>
+     
         </div>
         <ModalCloseButton/>
         <ModalBody>
             <ModalFooter>
                 <div className="gap-4 flex">
-                <button className="border shadow-xl px-3 py-1 rounded-md bg-gray-100" onClick={handleParticipante}>Enviar</button>
-                <button className="border shadow-xl px-3 py-1 rounded-md bg-gray-100" onClick={onClose}>Cerrar</button>
+                <button className="border shadow-xl px-3 py-1 rounded-md bg-gray-100" onClick={handleParticipante}>Confirmar</button>
+                <button className="border shadow-xl px-3 py-1 rounded-md bg-gray-100" onClick={onClose}>Cancelar</button>
                 </div>
 
             </ModalFooter>

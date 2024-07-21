@@ -1,5 +1,5 @@
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Table, TableContainer, Td, Th, Thead, Tr } from '@chakra-ui/react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { deleteGanadoresRequest, getGanadoresRequest, sendEmailRequest } from '../../../api/ganadores'
 import { Ganadores } from '../../../interface/ganadores'
 import { toast } from 'react-toastify'
@@ -18,7 +18,7 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
 
 
     const {data, isLoading} = useQuery<Ganadores[]>({
-        queryKey: ["eventoId", eventoId],
+        queryKey: ["ganadores", eventoId],
         queryFn: () => getGanadoresRequest(eventoId)
 
     })
@@ -37,19 +37,19 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
 
     
 
-
+    const queryClient = useQueryClient()
    
 
     const handleDelete = async(id: number) => {
       try {
         const res = await deleteGanadoresRequest(id)
         toast.info(res?.data.message)
+        queryClient.invalidateQueries({
+          queryKey: ['ganadores', eventoId],
+          exact: true,
+        })
       } catch (error) {
         console.log(error)
-      }finally{
-        setTimeout(() => {
-          window.location.reload()
-        }, 2000)
       }
     }
 

@@ -1,7 +1,7 @@
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Table, TableContainer, Tbody, Td, Thead, Tr, useDisclosure } from '@chakra-ui/react';
 import ButtonLayout from '../../../utils/ButtonLayout';
 import { Participante } from '../../../interface/participante';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { participanteByIdEvento } from '../../../api/participante';
 import { obtenerFecha } from '../../../utils/FechaFormat';
 import { generarGanadoresRequest } from '../../../api/ganadores';
@@ -24,7 +24,7 @@ interface GanadoresProps {
 
 const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
   const { data, isLoading, isError } = useQuery<Participante[]>({
-    queryKey: ["id", id],
+    queryKey: ["participante", id],
     queryFn: () => participanteByIdEvento(id),
     enabled: !!id
   });
@@ -33,6 +33,8 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const eventoId = id;
+
+  const queryClient = useQueryClient()
 
   const handleSorteo = async (formData: any) => {
     try {
@@ -43,11 +45,13 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
       };
       const result = await generarGanadoresRequest(dataJson);
       toast.success(result.data.success);
+      queryClient.invalidateQueries({
+        queryKey: ['ganadores', eventoId],
+        exact:true
+      })
     } catch (error) {
       console.log(error);
       toast.error("Error al generar los ganadores");
-    }finally{
-      window.location.reload();
     }
   };
 
@@ -63,6 +67,7 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
     return null
   }
 
+ if(data) 
   return (
     <>
       <button onClick={onOpen} className='rounded-md bg-neutral-800 px-6 py-1 font-medium text-2xl'>Ver participantes</button>

@@ -1,7 +1,8 @@
 import React from 'react'
 import Navbar from '../components/navbar/Navbar'
 import StarsCanvas from './StarBackground'
-import Footer from '../components/footer/Footer'
+
+
 
 
 const Layout = ({children}: {children: React.ReactNode}) => {
@@ -10,7 +11,7 @@ const Layout = ({children}: {children: React.ReactNode}) => {
   <div className='flex justify-center  '>
   <StarsCanvas/>
       <Navbar/>
-        <div className='mt-16 absolute z-50'>
+        <div className='mt-16 absolute  z-50'>
           {children}
         </div>
     </div>

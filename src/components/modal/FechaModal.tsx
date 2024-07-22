@@ -1,11 +1,12 @@
-import {  Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
+import {  Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalOverlay, useDisclosure } from "@chakra-ui/react"
 import { toast } from "react-toastify";
 import { CrearParticipante } from "../../interface/participante";
 import { useState } from "react";
 import { obtenerFecha } from "../../utils/FechaFormat";
 import { crearParticipante } from "../../api/participante";
-import { Select } from '@chakra-ui/react'
 import { MdOutlineDateRange } from "react-icons/md";
+
+
 
 
 interface FechaProps {
@@ -17,9 +18,7 @@ interface FechaProps {
 
 const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
 
-    // const [entradas, setEntradas] = useState("");
     const [checkFecha, setCheckFecha] = useState<string[]>([]);
-
 
     const { isOpen, onOpen, onClose } = useDisclosure() 
 
@@ -39,6 +38,7 @@ const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
          const res = await crearParticipante(data)
          if(res.success){
             toast.success(res.success)
+            onClose();
          }else{
             toast.info(res.error)
          }
@@ -56,12 +56,21 @@ const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
     <ModalOverlay />
     <ModalContent>
 
-        <div className="px-8 p-9 flex flex-col gap-5">
+        <div className="px-4 p-5 flex flex-col gap-5">
             <aside className="flex flex-col ">
                
             {fechas.length === 1 ? <>
-            <div className="text-center p-8 text-2xl font-semibold">
-              Desea participar del sorteo?
+            <div className="text-3xl font-semibold ">
+              <p className="text-center">Participar del sorteo?</p>
+              {fechas.map((item, index) => (
+                <div key={index}>
+                    <div className=" text-2xl  mt-5 flex flex-col  gap-3 p-2">
+                       <p className="text-start">Fecha de la función</p> 
+                    <div className="flex items-center font-thin gap-2">
+                     <span className=""><MdOutlineDateRange/></span> {obtenerFecha(item)}
+                      </div> </div>
+                </div>
+              ))}
               </div></>  : 
 <>
                <p className="mb-2 font-semibold flex text-2xl gap-1 items-center"> Seleccione las fechas que desea ir</p>
@@ -85,8 +94,8 @@ const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
         <ModalBody>
             <ModalFooter>
                 <div className="gap-4 flex">
-                <button className="border shadow-xl px-3 py-1 rounded-md bg-gray-100" onClick={handleParticipante}>Confirmar</button>
-                <button className="border shadow-xl px-3 py-1 rounded-md bg-gray-100" onClick={onClose}>Cancelar</button>
+                <button className="border shadow-xl px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200" onClick={handleParticipante}>Confirmar</button>
+                <button className="border shadow-xl px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200" onClick={onClose}>Cancelar</button>
                 </div>
 
             </ModalFooter>

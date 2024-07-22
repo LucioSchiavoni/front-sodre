@@ -10,7 +10,7 @@ const Navbar = () => {
     const user = useAuthStore((state) => state.profile)
   return (
     <div className="flex z-10 dark:bg-neutral-900 justify-between  p-3  w-full m-auto shadow-xl">
-         <DarkMode/>
+        
     {
       user.rol === "ADMIN" ?
       
@@ -22,7 +22,8 @@ const Navbar = () => {
       
       :
       null
-    }
+    } 
+    <DarkMode/>
     <div className='flex gap-5'>
        <h2 className='text-black  flex items-center text-xl capitalize dark:text-white font-medium'>Bienvenido {user.nombre}</h2>
         <Tooltip label="Cerrar sesion">

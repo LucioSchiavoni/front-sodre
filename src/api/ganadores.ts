@@ -3,7 +3,7 @@ import { Ganadores } from "../interface/ganadores";
 
 
 
-export const generarGanadoresRequest = async(data:any): Promise<any> => {
+export const generarGanadoresRequest = async(data:any) => {
     try {
         const ganadoresData = await clienteAxios.post("/ganadores", data)
         return ganadoresData;

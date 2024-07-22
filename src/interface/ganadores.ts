@@ -13,12 +13,6 @@ export interface Ganadores {
     cedula: string;
     sector: string;
     ganador_anterior: boolean;
-    },
-    evento:{
-        id:number;
-        nombre_evento: string;
-        entradas: number;
-        participantes: Participante[];
     }
 }
 

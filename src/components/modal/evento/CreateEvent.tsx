@@ -11,7 +11,7 @@ import EventoForm from '../../forms/EventoForm';
     <>
 
     <Tooltip label="Crear evento">
-       <button className='px-3 py-1 rounded-md flex gap-2 items-center mt-2  dark:bg-white dark:text-black font-semibold bg-neutral-900 text-white' onClick={onOpen}>
+       <button className='px-4 py-1 text-xl rounded-md flex gap-2 items-center mt-2  dark:bg-white dark:text-black font-semibold bg-neutral-900 text-white' onClick={onOpen}>
    Publicar <MdOutlineLibraryAdd/>
   </button>
     </Tooltip>

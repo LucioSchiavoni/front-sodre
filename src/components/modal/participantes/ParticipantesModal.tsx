@@ -3,13 +3,14 @@ import ButtonLayout from '../../../utils/ButtonLayout';
 import { Participante } from '../../../interface/participante';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { participanteByIdEvento } from '../../../api/participante';
-import { obtenerFecha } from '../../../utils/FechaFormat';
 import { generarGanadoresRequest } from '../../../api/ganadores';
 import AcordionModal from '../ganadores/AcordionModal';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { ScrollShadow } from '@nextui-org/react';
 import { IoTicket } from "react-icons/io5";
+import { Skeleton, Stack } from '@chakra-ui/react'
+
 
 interface EventoId {
   id: number;
@@ -19,7 +20,6 @@ interface EventoId {
 interface GanadoresProps {
   eventoId: number;
   numGanadores: number;
-  fecha_seleccionada: string;
 }
 
 const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
@@ -36,15 +36,15 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
 
   const queryClient = useQueryClient()
 
-  const handleSorteo = async (formData: any) => {
+  const handleSorteo = async (data: any) => {
     try {
+  
       const dataJson: GanadoresProps = {
         eventoId: eventoId,
-        numGanadores: formData.numGanadores,
-        fecha_seleccionada: formData.fecha_seleccionada
+        numGanadores: data.numGanadores,
       };
       const result = await generarGanadoresRequest(dataJson);
-      toast.success(result.data.success);
+      toast.success(result?.data.success);
       queryClient.invalidateQueries({
         queryKey: ['ganadores', eventoId],
         exact:true
@@ -56,7 +56,13 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
   };
 
   if (isLoading) {
-    return <div>Cargando...</div>;
+    return <>
+     <Stack>
+      <Skeleton height='20px'/>
+      <Skeleton height='20px'/>
+      <Skeleton height='20px'/>
+    </Stack>
+    </>;
   }
 
   if (isError) {
@@ -64,12 +70,27 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
   }
 
   if (!data || data.length === 0) {
-    return null
+    return <> 
+    <button onClick={onOpen} className='rounded-md bg-neutral-900 px-6 py-1 font-medium text-2xl'>Ver participantes</button>
+    <Modal isOpen={isOpen} onClose={onClose} size='xl'>
+      <ModalOverlay/>
+      <ModalContent className='p-6'>
+  
+        <ModalCloseButton/>
+        <div>
+          <p className='text-center text-gray-700 mt-4 text-2xl'> Sin participantes actualmente.</p>
+         
+        </div>
+      </ModalContent>
+      
+    </Modal>
+    </>
   }
 
  if(data) 
   return (
     <>
+    
       <button onClick={onOpen} className='rounded-md bg-neutral-800 px-6 py-1 font-medium text-2xl'>Ver participantes</button>
 
       <Modal isOpen={isOpen} onClose={onClose} size='4xl' >
@@ -81,23 +102,23 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
             <div className='px-3 py-2 flex flex-col ' style={{ maxHeight: '60vh', overflowY: 'auto' }}>
               <TableContainer>
                  <ScrollShadow 
-                      //hideScrollBar
+                      // hideScrollBar
                       offset={100}
                       orientation='horizontal'
                       className='max-w-[900px] max-h-[300px] '
                       >
-                <Table size='sm'>
+                <Table size='md'>
                   <Thead >
                     <tr className='dark:text-white  '>
-                      <th className='text-start'>Nombre del participante</th>
-        
+                      <th className='text-start px-3'>Nombre del participante</th>
+
                     
                     </tr>
                   </Thead>
                   <Tbody>  {data.map((item: Participante, index: number) => (
-                      <Tr key={index} >
-                        <Td className='capitalize'>{item.usuario.nombre}</Td>
-                      
+                      <Tr key={index}  className='capitalize '>
+                        <Td className='px-4 py-1'>{item.usuario.nombre}</Td>
+                        
                       </Tr>
                     ))}
                   </Tbody>

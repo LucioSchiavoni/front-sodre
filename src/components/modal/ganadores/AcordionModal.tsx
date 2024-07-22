@@ -1,4 +1,4 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Table, TableContainer, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Skeleton, Stack, Table, TableContainer, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { deleteGanadoresRequest, getGanadoresRequest, sendEmailRequest } from '../../../api/ganadores'
 import { Ganadores } from '../../../interface/ganadores'
@@ -28,7 +28,6 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
     const handleSend = async(nombre: string, email:string) => {
       try {
         const res = await sendEmailRequest(nombre, email)
-        console.log(nombre, email)
         toast.info(res.message)
       } catch (error) {
         console.log(error)
@@ -55,9 +54,13 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
 
     if(isLoading)
         return(
-    <div>
-        Cargando...
-    </div>
+   <>
+        <Stack>
+      <Skeleton height='20px'/>
+      <Skeleton height='20px'/>
+      <Skeleton height='20px'/>
+    </Stack>
+   </>
     )
 
     if (!data || !Array.isArray(data) || data.length === 0) {
@@ -82,7 +85,7 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
       </AccordionButton>
     </h2>
     <AccordionPanel pb={4} >
-                    <TableContainer>
+    <TableContainer>
   <Table variant='simple' className=''>
     <Thead>
       <Tr  >

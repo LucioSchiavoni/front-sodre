@@ -152,7 +152,7 @@ const EventoForm = () => {
           
         </div>
             <div className="mt-6">
-                <button type='submit' className="w-full px-3 py-2 text-xl font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-neutral-800 rounded-lg hover:bg-neutral-700 focus:outline-none focus:ring focus:ring-opacity-50">
+                <button type='submit' className="w-full px-3 py-2 text-xl font-medium tracking-wide text-white  transition-colors duration-300 transform bg-neutral-800 rounded-lg hover:bg-neutral-700 focus:outline-none focus:ring focus:ring-opacity-50">
                    Crear evento
                 </button>
 

@@ -24,7 +24,7 @@ const LoginForm = () => {
             setToken(token);
             const isAuth = await auth();
             setProfile(isAuth);
-            navigate("/auth");
+            navigate("/Inicio");
           } else {
             toast.error("Credenciales incorrectas");
           }

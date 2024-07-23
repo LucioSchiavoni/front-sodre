@@ -5,10 +5,11 @@ import StarsCanvas from './StarBackground'
 
 
 
+
 const Layout = ({children}: {children: React.ReactNode}) => {
   return (
   <>
-  <div className='flex justify-center  '>
+  <div className='flex  justify-center  '>
   <StarsCanvas/>
       <Navbar/>
         <div className='mt-16 absolute  z-50'>

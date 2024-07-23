@@ -4,6 +4,7 @@ import { deleteGanadoresRequest, getGanadoresRequest, sendEmailRequest } from '.
 import { Ganadores } from '../../../interface/ganadores'
 import { toast } from 'react-toastify'
 import { MdDelete } from 'react-icons/md'
+import { RiMailSendLine } from "react-icons/ri";
 
 
 
@@ -24,16 +25,15 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
     })
 
 
-
-    const handleSend = async(nombre: string, email:string) => {
+    const handleSend = async(eventoId: number) => {
       try {
-        const res = await sendEmailRequest(nombre, email)
+        const res = await sendEmailRequest(eventoId)
         toast.info(res.message)
       } catch (error) {
         console.log(error)
       }
     }
-
+  
     
 
     const queryClient = useQueryClient()
@@ -78,8 +78,10 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
   <AccordionItem className=''>
     <h2>
       <AccordionButton>
-        <Box as='span' flex='1' textAlign='left' className='font-medium text-xl px-4'>
-          Ganadores
+        <Box as='span' flex='1' textAlign='left' className='font-medium  px-4 flex justify-between'>
+        <p className='text-xl'>Ganadores  </p>       
+     <button onClick={ () => handleSend(eventoId)} className='px-3 py-1 rounded-md border  mr-24 flex items-center gap-2 font-semibold dark:hover:bg-neutral-700 hover:bg-gray-200'>Enviar correo <span><RiMailSendLine/></span></button>
+  
         </Box>
         <AccordionIcon />
       </AccordionButton>
@@ -87,33 +89,41 @@ const AcordionModal: React.FC<IdProps> = ({eventoId}) => {
     <AccordionPanel pb={4} >
     <TableContainer>
   <Table variant='simple' className=''>
-    <Thead>
+    <Thead >
       <Tr  >
         <Th className='dark:text-white'>Nombre</Th>
         
-        <Th className='dark:text-white'>Enviar correo</Th>
+        <Th className='dark:text-white '>Correo</Th>
         <Th className='dark:text-white'>Borrar ganador</Th>
        
       </Tr>
     </Thead>
     <tbody className=''>
       {
+        
         data.map((item: Ganadores, index: number) => (
+          <>
+          
       <Tr key={index} className='dark:text-white '>
-        <Td className='capitalize'>{item.usuario.nombre}</Td> 
- 
-     <Td> <button className='px-3 py-1 border dark:border-neutral-700 dark:hover:bg-neutral-700 hover:bg-gray-200 rounded-md' onClick={() => handleSend(item.usuario.nombre, item.usuario.email || "")}>Enviar </button></Td>  
+        <Td className='capitalize'>{item.usuario.nombre}</Td>         
+     <Td> {item.usuario.email}</Td>  
     <Td><button className='px-3 py-1 border rounded-md flex items-center text-xl dark:border-neutral-700 dark:hover:bg-neutral-700 hover:bg-gray-200' onClick={() => handleDelete(item.id)}> <MdDelete/></button></Td>    
       
       </Tr>
-        ))
-      } 
+      
+     </>   ))
+    
+    } 
       </tbody>
   </Table>
+
+ 
 </TableContainer>
-   
-    </AccordionPanel>
-  </AccordionItem>
+  
+    </AccordionPanel> 
+  
+  </AccordionItem>  
+
   </Accordion>
     </>
   )

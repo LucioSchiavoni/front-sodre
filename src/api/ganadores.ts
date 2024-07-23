@@ -22,13 +22,9 @@ export const getGanadoresRequest = async(eventoId:number): Promise<Ganadores[] |
     }
 }
 
-export const sendEmailRequest = async(nombre: string, email: string) => {
+export const sendEmailRequest = async(eventoId: number) => {
     try {
-        const dataJson = {
-            nombre: nombre,
-            email: email
-        }
-        const result = await clienteAxios.post("/sendEmail", dataJson)
+        const result = await clienteAxios.post("/sendEmail", eventoId)
         return result.data;
     } catch (error) {
         console.log(error)

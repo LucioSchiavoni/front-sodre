@@ -5,7 +5,7 @@ import { useState } from "react";
 import { obtenerFecha } from "../../utils/FechaFormat";
 import { crearParticipante } from "../../api/participante";
 import { MdOutlineDateRange } from "react-icons/md";
-
+import { IoTicket } from "react-icons/io5";
 
 
 
@@ -49,14 +49,14 @@ const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
 
   return (
     <>
-    <button className="px-3 py-1 rounded-md shadow-md bg-neutral-900 text-xl font-medium" onClick={onOpen}>
-       Participar en el sorteo
+    <button className="px-3 py-1 rounded-md shadow-md bg-neutral-900 text-xl font-medium flex items-center gap-2" onClick={onOpen}>
+       Participar en el sorteo <span><IoTicket/></span>
     </button>
     <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
     <ModalOverlay />
     <ModalContent>
 
-        <div className="px-4 p-5 flex flex-col gap-5">
+        <div className="px-8 p-8 flex flex-col gap-5">
             <aside className="flex flex-col ">
                
             {fechas.length === 1 ? <>
@@ -75,7 +75,7 @@ const FechaModal: React.FC<FechaProps> = ({fechas, eventoId, userId}) => {
 <>
                <p className="mb-2 font-semibold flex text-2xl gap-1 items-center"> Seleccione las fechas que desea ir</p>
               {fechas.map((fechaItem, index) => (
-          <div key={index} className="flex gap-2 items-center font-semibold capitalize">
+          <div key={index} className="flex gap-2 mt-2 items-center font-semibold capitalize">
              <input 
                     type="checkbox" 
                     value={fechaItem} 

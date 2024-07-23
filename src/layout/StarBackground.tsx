@@ -40,7 +40,7 @@ const StarBackground = (props: any) => {
 };
 
 const StarsCanvas = () => (
-    <div className="h-auto dark:bg-neutral-900 bg-gray-100 fixed inset-0  ">
+    <div className="h-auto dark:bg-neutral-900 fixed inset-0  ">
         <Canvas camera={{position: [0, 0, 1]}}>
         <Suspense fallback={null}>
             <StarBackground />

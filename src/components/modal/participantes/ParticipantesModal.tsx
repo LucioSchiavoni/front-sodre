@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { ScrollShadow } from '@nextui-org/react';
 import { IoTicket } from "react-icons/io5";
 import { Skeleton, Stack } from '@chakra-ui/react'
+import { FaUser } from "react-icons/fa";
 
 
 interface EventoId {
@@ -31,6 +32,7 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
 
   const { handleSubmit, register, formState: { errors }  } = useForm();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
 
   const eventoId = id;
 
@@ -57,13 +59,20 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
 
   if (isLoading) {
     return <>
-     <Stack>
+    <button onClick={onOpen} className='rounded-md bg-neutral-800 px-6 py-1 font-medium text-2xl flex items-center gap-2'>Ver participantes <span className='text-xl'><FaUser/></span></button>   
+    <Modal isOpen={isOpen} onClose={onClose} size='4xl'  > 
+    <ModalOverlay/>
+    <ModalContent className='p-6'>
+        <ModalCloseButton/>
+      <Stack>
       <Skeleton height='20px'/>
       <Skeleton height='20px'/>
       <Skeleton height='20px'/>
-    </Stack>
-    </>;
-  }
+      </Stack>
+      </ModalContent>
+    </Modal>
+    </>
+  };
 
   if (isError) {
     return <div>Error al cargar los participantes</div>;
@@ -71,7 +80,7 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
 
   if (!data || data.length === 0) {
     return <> 
-    <button onClick={onOpen} className='rounded-md bg-neutral-900 px-6 py-1 font-medium text-2xl'>Ver participantes</button>
+    <button onClick={onOpen} className='rounded-md bg-neutral-900 px-6 py-1 font-medium text-2xl flex items-center gap-2'>Ver participantes <span><FaUser/></span></button>
     <Modal isOpen={isOpen} onClose={onClose} size='xl'>
       <ModalOverlay/>
       <ModalContent className='p-6'>
@@ -91,11 +100,11 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
   return (
     <>
     
-      <button onClick={onOpen} className='rounded-md bg-neutral-800 px-6 py-1 font-medium text-2xl'>Ver participantes</button>
+      <button onClick={onOpen} className='rounded-md bg-neutral-800 px-6 py-1 font-medium text-2xl flex items-center gap-2'>Ver participantes <span className='text-xl'><FaUser/></span></button>
 
-      <Modal isOpen={isOpen} onClose={onClose} size='4xl' >
+      <Modal isOpen={isOpen} onClose={onClose} size='4xl'  >
         <ModalOverlay />
-        <ModalContent className='dark:bg-neutral-900 dark:text-white'>
+        <ModalContent className='dark:bg-neutral-900 dark:text-white '>
           <h2 className='text-center mt-8 text-2xl font-medium'>Participantes del sorteo</h2>
           <ModalCloseButton />
           <ModalBody>
@@ -157,8 +166,8 @@ const ParticipantesModal: React.FC<EventoId> = ({ id, entradas }) => {
            
             </div>
           </div>
-          <div className='px-10 py-2 ml-10 flex justify-end '>
-<ButtonLayout content='Cerrar' onClick={onClose}  />
+          <div className=' py-2  px-8 flex justify-end '>
+          <ButtonLayout content='Cerrar' onClick={onClose}  />
           </div>
           
         </ModalContent>

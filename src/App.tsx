@@ -16,7 +16,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename='/sodre'>
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route element={<ProtectedRoute isAllowed={isAuth} />}> 

@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { MdDateRange } from "react-icons/md";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+
 const EventoForm = () => {
   const { handleSubmit, register, formState: { errors } } = useForm<{
     entradas:number;
@@ -14,7 +15,8 @@ const EventoForm = () => {
   }>();
 
   const [file, setFile] = useState<File | null>(null);
-  const [fechas, setFechas] = useState<string[]>(['']);
+  const [fechas, setFechas] = useState<{fecha: string, hora: string}[]>([{fecha: '', hora: ''}]);
+
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -24,15 +26,14 @@ const EventoForm = () => {
   };
 
 
-
-  const handleFechaChange = (index: number, value: string) => {
+  const handleFechaHoraChange = (index: number, value: string, type: 'fecha' | 'hora') => {
     const newFechas = [...fechas];
-    newFechas[index] = value;
+    newFechas[index][type] = value;
     setFechas(newFechas);
   };
 
   const addFecha = () => {
-    setFechas([...fechas, '']);
+    setFechas([...fechas, {fecha: '', hora: ''}]);
   };
 
   const removeFecha = (index: number) => {
@@ -58,6 +59,8 @@ const EventoForm = () => {
     },
   });
 
+
+
   const handleForm = async (data: any) => {
     try {
       const formData = new FormData();
@@ -66,7 +69,7 @@ const EventoForm = () => {
       }
       formData.append('nombre_evento', data.nombre_evento);
       formData.append('descripcion', data.descripcion);
-      formData.append('fechas_evento', JSON.stringify(fechas));
+      formData.append('fechas_evento', JSON.stringify(fechas.map(f => `${f.fecha} ${f.hora}`)));
       formData.append('entradas', data.entradas);
       
       mutation.mutate(formData)
@@ -79,6 +82,7 @@ const EventoForm = () => {
 
   return (
     <section className=" ">
+  
     <div className=" flex justify-center mt-5 px-6 mx-auto">
         <form className="w-full max-w-md" onSubmit={handleSubmit(handleForm)}>
          
@@ -111,32 +115,43 @@ const EventoForm = () => {
                 {errors.entradas && <p>{errors.entradas.message}</p>}
             </div>
 
-            <div className="relative mt-5">
-        <label htmlFor="" className='font-semibold '>Fechas del evento</label>
-        {fechas.map((fecha, index) => (
-        
-        <div className="relative  flex items-center" key={index}>
-            
-            <input
-              type="date"
-              placeholder="Fecha del Evento"
-              className="py-3 border px-4 block w-9/12 mt-2 border-gray-200 rounded-lg  focus:border-neutral-800 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none  dark:border-neutral-700  dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-              value={fecha}
-              onChange={(e) => handleFechaChange(index, e.target.value)}
-              required
-            />
-            
-            {index > 0 && (
-              <button
-                type="button"
-                className="ml-2 px-2 py-2 text-xl hover:bg-red-400 rounded-md bg-red-500 text-white"
-                onClick={() => removeFecha(index)}
-              >
-                <MdDelete/>
-              </button>
-            )}
-          </div>
-        ))}
+          
+            <div className=" mt-5 ">
+            <label htmlFor="" className='font-semibold'>Fechas del evento</label>
+            {fechas.map((fecha, index) => (
+              <div key={index}>
+                <div className="flex ">
+                  <input
+                    type="date"
+                    placeholder="Fecha del Evento"
+                    className="py-3 border px-4 block w-7/12 mt-2 border-gray-200 rounded-lg focus:border-neutral-800 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                    value={fecha.fecha}
+                    onChange={(e) => handleFechaHoraChange(index, e.target.value, 'fecha')}
+                    required
+                  />
+                  <input
+                    type="time"
+                    placeholder="Hora del Evento"
+                    className="py-3 border px-4 block w-6/12 mt-2 border-gray-200 rounded-lg focus:border-neutral-800 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                    value={fecha.hora}
+                    onChange={(e) => handleFechaHoraChange(index, e.target.value, 'hora')}
+                    required
+                  />
+                  {index > 0 && (
+                    <button
+                      type="button"
+                      className="ml-2 px-2 py-2 text-xl hover:bg-red-400 rounded-md bg-red-500 text-white"
+                      onClick={() => removeFecha(index)}
+                    >
+                      <MdDelete />
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+         
+          
+
         
         <button
           type="button"
@@ -149,8 +164,13 @@ const EventoForm = () => {
           </span>
        
         </button>
+
+      
           
         </div>
+
+
+
             <div className="mt-6">
                 <button type='submit' className="w-full px-3 py-2 text-xl font-medium tracking-wide text-white  transition-colors duration-300 transform bg-neutral-800 rounded-lg hover:bg-neutral-700 focus:outline-none focus:ring focus:ring-opacity-50">
                    Crear evento
@@ -160,6 +180,7 @@ const EventoForm = () => {
             </div>
         </form>
     </div>
+ 
 </section>
   );
 };

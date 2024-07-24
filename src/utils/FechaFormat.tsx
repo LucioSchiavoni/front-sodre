@@ -3,6 +3,6 @@ import {es} from 'date-fns/locale';
 
 export const obtenerFecha = (fecha: string): string => {
     const fechaDate = parseISO(fecha);
-    const fechaConfig = format(fechaDate, "dd MMMM", {locale: es} );
+    const fechaConfig = format(fechaDate, "dd MMMM HH:mm", {locale: es} );
     return fechaConfig;
 }

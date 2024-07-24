@@ -58,7 +58,7 @@ export const EventoCard = () => {
  
 
     <div className="text-white flex justify-between p-10  mt-2 transition-all  ">
-       <div className="flex flex-col w-80 bg-neutral-900 p-4 bg-opacity-70 rounded-md shadow-xl">
+       <div className="flex flex-col w-4/12 bg-neutral-900 p-4 bg-opacity-70 rounded-md shadow-xl">
          <article className="p-4 text-white ">
      <motion.h2 variants={slideInFromTop} className="text-3xl font-bold ">{item.nombre_evento}</motion.h2>
   </article>
@@ -76,11 +76,11 @@ export const EventoCard = () => {
         <div className="flex flex-col mt-10 text-xl text-white">
        <p className="flex items-center gap-2 font-semibold"> <MdOutlineDateRange /> Fechas</p>
        
-        <div className="flex gap-3 mt-2  text-xl">
+        <div className="flex gap-3 mt-2   text-xl">
           
         {item.fechas_evento.map((item, index) => (
-            <motion.p variants={slideInFromLeft(0.5)} key={index} className="text-white  font-medium">
-              {obtenerFecha(item.fecha)}
+            <motion.p variants={slideInFromLeft(0.5)} key={index} className="text-white capitalize font-medium">
+              {obtenerFecha(item.fecha)} H
           </motion.p>
         ))}
        </div>

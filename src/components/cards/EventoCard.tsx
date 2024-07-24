@@ -45,6 +45,12 @@ export const EventoCard = () => {
           <Spinner />
           </div>
         )
+  if(data?.length === 0)
+    return(
+  <div className="mt-64 dark:text-white ">
+   <h3 className="text-center font-medium text-4xl">Sin eventos creados.</h3> 
+  </div>
+    )
 
     if(data)
   return (

@@ -6,6 +6,7 @@ import { ProtectedRoute } from './utils/ProtectedRoute'
 import HomeAuth from './pages/HomeAuth'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/ReactToastify.css';
+import NotFound from './pages/NotFound.tsx'
 
 
 
@@ -21,6 +22,7 @@ function App() {
         <Route path='/' element={<Home/>} />
         <Route element={<ProtectedRoute isAllowed={isAuth} />}> 
         <Route path='/Inicio' element={<HomeAuth/>} />
+        <Route path='/*' element={<NotFound/>} />
         </Route>
       </Routes>
       <ToastContainer position='top-right'

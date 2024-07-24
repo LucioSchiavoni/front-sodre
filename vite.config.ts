@@ -12,6 +12,6 @@ export default defineConfig({
     port: 3001,
     open: true,
   },
-  base:'/sodre',
+  base:'/sodre/',
   
 })

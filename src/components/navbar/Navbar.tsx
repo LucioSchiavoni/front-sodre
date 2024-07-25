@@ -25,7 +25,7 @@ const Navbar = () => {
     } 
     <DarkMode/>
     <div className='flex gap-5'>
-       <h2 className='text-black  flex items-center text-xl capitalize dark:text-white font-medium'>Bienvenido {user.nombre}</h2>
+       <h2 className='text-black  flex items-center text-xl capitalize dark:text-white font-medium'> {user.nombre}</h2>
         <Tooltip label="Cerrar sesion">
         <button onClick={logout} className="px-3 py-1 hover:bg-gray-200 rounded-md transition-all">
         <span className="text-center items-center text-2xl dark:text-white"><IoLogOutOutline /></span>

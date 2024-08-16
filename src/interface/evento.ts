@@ -3,6 +3,8 @@ export interface Evento {
     nombre_evento: string;
     imagen: string | undefined;
     descripcion: string;
+    sala: string;
+    lugar: string;
     entradas: number;
     fecha_eliminado: string | null;
     fechas_evento: {fecha: string}[];

@@ -12,6 +12,8 @@ const EventoForm = () => {
     entradas:number;
     nombre_evento:string;
     descripcion: string;
+    lugar: string;
+    sala: string;
   }>();
 
   const [file, setFile] = useState<File | null>(null);
@@ -71,7 +73,8 @@ const EventoForm = () => {
       formData.append('descripcion', data.descripcion);
       formData.append('fechas_evento', JSON.stringify(fechas.map(f => `${f.fecha} ${f.hora}`)));
       formData.append('entradas', data.entradas);
-      
+      formData.append('sala', data.sala);
+      formData.append('lugar', data.lugar);
       mutation.mutate(formData)
     } catch (error) {
       console.log(error);
@@ -113,6 +116,18 @@ const EventoForm = () => {
                   }
                 })} className="block w-full px-3 mt-2 py-3 text-black bg-white border rounded-lg   dark:border-gray-600 focus:border-blue-400 dark:focus:border-neutral-900 focus:ring-neutral-900 focus:outline-none focus:ring focus:ring-opacity-40" />
                 {errors.entradas && <p>{errors.entradas.message}</p>}
+            </div>
+
+            <div className=" items-center mt-6">
+               <label htmlFor="" className=' text-neutral-800 font-semibold'>Lugar</label>
+                <input type="text" id='lugar' required {...register('lugar', {required: true })} className="block w-full px-3 mt-2 py-3 text-black bg-white border rounded-lg   dark:border-gray-600 focus:border-blue-400 dark:focus:border-neutral-900 focus:ring-neutral-900 focus:outline-none focus:ring focus:ring-opacity-40" />
+                {errors.lugar && <p>{errors.lugar.message}</p>}
+            </div>
+
+            <div className=" items-center mt-6">
+               <label htmlFor="" className=' text-neutral-800 font-semibold'>Sala</label>
+                <input type="text" id='sala' required {...register('sala', {required: true })} className="block w-full px-3 mt-2 py-3 text-black bg-white border rounded-lg   dark:border-gray-600 focus:border-blue-400 dark:focus:border-neutral-900 focus:ring-neutral-900 focus:outline-none focus:ring focus:ring-opacity-40" />
+                {errors.sala && <p>{errors.sala.message}</p>}
             </div>
 
           

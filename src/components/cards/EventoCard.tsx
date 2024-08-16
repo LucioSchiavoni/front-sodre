@@ -64,13 +64,13 @@ export const EventoCard = () => {
  
 
     <div className="text-white flex justify-between p-10  mt-2 transition-all  ">
-       <div className="flex flex-col w-4/12 bg-neutral-900 p-4 bg-opacity-70 rounded-md shadow-xl">
+       <div className="flex flex-col w-6/12 bg-neutral-900 p-4 bg-opacity-70 rounded-md shadow-xl">
          <article className="p-4 text-white ">
      <motion.h2 variants={slideInFromTop} className="text-3xl font-bold ">{item.nombre_evento}</motion.h2>
   </article>
         <motion.p variants={slideInFromLeft(0.5)} className="text-white text-xl font-medium">
           <ScrollShadow 
-          hideScrollBar
+         
           offset={100}
           orientation='horizontal'
           className='max-w-[900px] max-h-[200px] '
@@ -79,23 +79,41 @@ export const EventoCard = () => {
           </ScrollShadow>
           
           </motion.p>
-        <div className="flex flex-col mt-10 text-xl text-white">
+        <div className="flex flex-col mt-4 text-xl text-white">
        <p className="flex items-center gap-2 font-semibold"> <MdOutlineDateRange /> Fechas</p>
        
-        <div className="flex gap-3 mt-2   text-xl">
+        <div className="flex flex-col mt-2  ">
           
         {item.fechas_evento.map((item, index) => (
-            <motion.p variants={slideInFromLeft(0.5)} key={index} className="text-white capitalize font-medium">
-              {obtenerFecha(item.fecha)} H
+            <motion.p variants={slideInFromLeft(0.5)} key={index} className="text-white  capitalize font-medium">
+              <ScrollShadow 
+              offset={1}
+              orientation="horizontal"
+              className="max-w-[900px] max-h-[50px]"
+              >
+              {obtenerFecha(item.fecha)} Hrs
+              </ScrollShadow>
           </motion.p>
         ))}
        </div>
+       <div className="absolute right-5 gap-4 top-5 flex flex-col bg-black bg-opacity-60 p-4 rounded-md">
+           <aside className="flex flex-col ">
+           <p className="">Lugar</p>
+            <p className="">{item.lugar}</p>
+           </aside>
+           <aside className="flex flex-col ">
+            <p>Sala</p>
+            <p>{item.sala}</p>
+           </aside>
+       </div>
+
        </div>
        </div>
        {
         user.rol === "USER" ?
         <>
-        <div className="absolute bottom-10 ">
+        <div className="absolute bottom-10 right-10 ">
+       
           <FechaModal fechas={item.fechas_evento.map((item => item.fecha))} userId={userId} eventoId={item.id}/>
         </div>
         </>
@@ -108,7 +126,8 @@ export const EventoCard = () => {
     {
           user.rol === "ADMIN" ?
      <>
-     <div className="flex gap-2 absolute bottom-10 right-24 ">
+     <div className="flex gap-2 absolute bottom-10  right-24 ">
+
       <ParticipantesModal id={item.id}  entradas={item.entradas} />
       <ConfirmDelete onClick={() => handleDelete(item.id)}/>
 

@@ -16,7 +16,7 @@ import EventoForm from '../../forms/EventoForm';
   </button>
     </Tooltip>
   
-  <Drawer    isOpen={isOpen}
+  <Drawer size={'md'}   isOpen={isOpen}
     placement='right'
     onClose={onClose}
   >
